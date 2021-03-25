@@ -1,0 +1,19 @@
+body {
+    height: 1000px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(#f9fc6b, #a71603);
+    font-size: xx-large;
+    margin-top: 100px;
+    color: #42260b;
+}
+
+main, p {
+    width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h2 {
+    color: #42260b;
+    font-family: Georgia;
+}

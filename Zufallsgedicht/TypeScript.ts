@@ -2,8 +2,8 @@ namespace RandomPoem {
 
     // Drei Arrays mit den jeweiligen Subjektiven, Verben und Objektiven
     let subjects: string[] = ["Paul", "Lisa", "Max", "Sophie", "Tom", "Die Putzfrau"];
-    let verbs: string[] = ["tötet", "liebt", "putzt", "hasst", "heiratet", "verbrennt"];
-    let objects: string[] = ["Fliegen", "seinen/ihren Partner", "eine Giraffe", "das Haus", "die Sekretärin", "die Polizei"];
+    let verbs: string[] = ["tötet", "liebt", "putzt", "kocht", "heiratet", "verbrennt"];
+    let objects: string[] = ["Fliegen", "einen Freund", "eine Giraffe", "das Haus", "die Sekretärin", "die Polizei"];
     
     // While-Schleife, die so lange ausgeführt wird, solange sich noch Subjektive im jeweiligen Array befinden.
     // Mit document.write manipuliere ich den Dom und bereite ihn auf die Verse des Gedichts vor.
