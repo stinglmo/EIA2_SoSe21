@@ -38,7 +38,6 @@ h1 {
 
 span {
     position: fixed;
-    position: relative;
     background-color: rgb(0, 0, 0);
     height: 200px;
     width: 300px;
