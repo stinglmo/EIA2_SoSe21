@@ -6,19 +6,17 @@ var Aufgabe02_1;
     // Funktion handleLoad mit den drei Event-Listener mousemove, click und keyup wird deklariert.
     function handleLoad(_event) {
         let body = document.querySelector("body");
-        body.addEventListener("mousemove", setInfoBox);
+        document.addEventListener("mousemove", setInfoBox);
         body.addEventListener("click", logInfo);
         body.addEventListener("keyup", logInfo);
     }
     // Funktion die beim Bewegen der Maus aufgerufen wird.
     function setInfoBox(_event) {
         // Cursorwert der auf das span-Element übergeben wird, damit es immer aktuell ist.
-        let x = _event.offsetX;
-        let y = _event.offsetY;
+        let x = _event.pageX + 10;
+        let y = _event.pageY + 10;
         // <HTMLElement> kann auch Null sein, aber wenn wir wissen, dass es vorhanden ist - passt es!
-        let body = _event.target;
         let mouseCursorSpan = document.querySelector("span");
-        body.appendChild(mouseCursorSpan);
         // Positionierung des Span-Elements
         mouseCursorSpan.style.left = x + "px";
         mouseCursorSpan.style.top = y + "px";
@@ -30,6 +28,7 @@ var Aufgabe02_1;
         console.log("CurrentTarget: " + _event.currentTarget);
         console.log("Event-Phase = " + _event.eventPhase);
         console.log("Path: " + _event.composedPath());
+        console.log(_event);
     }
 })(Aufgabe02_1 || (Aufgabe02_1 = {}));
 //# sourceMappingURL=Typescript.js.map
