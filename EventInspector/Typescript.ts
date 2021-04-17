@@ -9,11 +9,17 @@ namespace Aufgabe02_1 {
 
         let body: HTMLElement = <HTMLElement>document.querySelector("body");
 
+        let button: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button");
+
         document.addEventListener("mousemove", setInfoBox);
 
         body.addEventListener("click", logInfo);
 
         body.addEventListener("keyup", logInfo);
+
+        document.addEventListener("riseup", buttonOutput);
+
+        button.addEventListener("click", bubbleFunction);
     }
 
     // Funktion die beim Bewegen der Maus aufgerufen wird.
@@ -39,8 +45,16 @@ namespace Aufgabe02_1 {
         console.log("CurrentTarget: " + _event.currentTarget);
         console.log("Event-Phase = " + _event.eventPhase);
         console.log("Path: " + _event.composedPath());
-        console.log(_event);
-        
+        console.log(_event);  
     }
+    // Zusatzaufgabe:
+    let buttonCustomEvent: CustomEvent = new CustomEvent("riseup", {detail: null});
+
+    function bubbleFunction(_event: Event): void {
+    document.dispatchEvent(buttonCustomEvent);
+}
+    function buttonOutput(_event: Event): void {
+    console.log(_event);
+}
 }
 

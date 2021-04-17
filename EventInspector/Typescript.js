@@ -6,9 +6,12 @@ var Aufgabe02_1;
     // Funktion handleLoad mit den drei Event-Listener mousemove, click und keyup wird deklariert.
     function handleLoad(_event) {
         let body = document.querySelector("body");
+        let button = document.querySelector("button");
         document.addEventListener("mousemove", setInfoBox);
         body.addEventListener("click", logInfo);
         body.addEventListener("keyup", logInfo);
+        document.addEventListener("riseup", buttonOutput);
+        button.addEventListener("click", bubbleFunction);
     }
     // Funktion die beim Bewegen der Maus aufgerufen wird.
     function setInfoBox(_event) {
@@ -28,6 +31,14 @@ var Aufgabe02_1;
         console.log("CurrentTarget: " + _event.currentTarget);
         console.log("Event-Phase = " + _event.eventPhase);
         console.log("Path: " + _event.composedPath());
+        console.log(_event);
+    }
+    // Zusatzaufgabe:
+    let buttonCustomEvent = new CustomEvent("riseup", { detail: null });
+    function bubbleFunction(_event) {
+        document.dispatchEvent(buttonCustomEvent);
+    }
+    function buttonOutput(_event) {
         console.log(_event);
     }
 })(Aufgabe02_1 || (Aufgabe02_1 = {}));
