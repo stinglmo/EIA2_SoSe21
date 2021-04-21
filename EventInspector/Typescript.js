@@ -10,6 +10,7 @@ var Aufgabe02_1;
         document.addEventListener("mousemove", setInfoBox);
         body.addEventListener("click", logInfo);
         body.addEventListener("keyup", logInfo);
+        // Für die Zusatzaufgabe:
         document.addEventListener("riseup", buttonOutput);
         button.addEventListener("click", bubbleFunction);
     }
@@ -24,7 +25,8 @@ var Aufgabe02_1;
         mouseCursorSpan.style.left = x + "px";
         mouseCursorSpan.style.top = y + "px";
     }
-    // Funktion, die beim Klicken der Maus und der Tastatur aufgerufen wird.
+    // Funktion, die beim Klicken der Maus und der Tastatur aufgerufen wird. 
+    // --> Infos über das Event in der Konsolenausgabe
     function logInfo(_event) {
         console.log("Event started: " + _event.type);
         console.log("Target: " + _event.target);
@@ -33,7 +35,7 @@ var Aufgabe02_1;
         console.log("Path: " + _event.composedPath());
         console.log(_event);
     }
-    // Zusatzaufgabe:
+    // Zusatzaufgabe CustomEvent:
     let buttonCustomEvent = new CustomEvent("riseup", { detail: null });
     function bubbleFunction(_event) {
         document.dispatchEvent(buttonCustomEvent);

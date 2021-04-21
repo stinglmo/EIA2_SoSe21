@@ -17,6 +17,7 @@ namespace Aufgabe02_1 {
 
         body.addEventListener("keyup", logInfo);
 
+        // Für die Zusatzaufgabe:
         document.addEventListener("riseup", buttonOutput);
 
         button.addEventListener("click", bubbleFunction);
@@ -38,7 +39,8 @@ namespace Aufgabe02_1 {
 
     }
 
-    // Funktion, die beim Klicken der Maus und der Tastatur aufgerufen wird.
+    // Funktion, die beim Klicken der Maus und der Tastatur aufgerufen wird. 
+    // --> Infos über das Event in der Konsolenausgabe
     function logInfo(_event: Event): void {
         console.log("Event started: " + _event.type);
         console.log("Target: " + _event.target);
@@ -47,7 +49,7 @@ namespace Aufgabe02_1 {
         console.log("Path: " + _event.composedPath());
         console.log(_event);  
     }
-    // Zusatzaufgabe:
+    // Zusatzaufgabe CustomEvent:
     let buttonCustomEvent: CustomEvent = new CustomEvent("riseup", {detail: null});
 
     function bubbleFunction(_event: Event): void {
