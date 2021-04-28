@@ -9,18 +9,78 @@ namespace Aufgabe3 {
     let cardsOpenArray: HTMLElement[] = [];
     let checkRest: HTMLElement[] = [];
 
-    // Start Formular
+    // Start game
+    let startMemory: HTMLElement = <HTMLElement>document.querySelector(".start");
+    startMemory.addEventListener("click", main);
 
+    function init(_event: Event): void {
+        console.log("Init");
+        let fieldsets: NodeListOf<HTMLFieldSetElement> = document.querySelectorAll("fieldset");
+
+        // Install listeners on fieldsets
+        for (let i: number = 0; i < fieldsets.length; i++) {
+            let fieldset: HTMLFieldSetElement = fieldsets[i];
+            fieldset.addEventListener("change", handleChange);
+            fieldset.addEventListener("input", handleChange);
+        }
+    }
+
+    function handleChange(_event: Event): void {
+        let target: HTMLInputElement = <HTMLInputElement>_event.target;
+        console.log();
+        if (_event.type == "change")
+            console.warn("Change: " + target.name + " = " + target.value, _event);
+        else
+            console.log("Input: " + target.name + " = " + target.value, _event);
+
+        // Stepper response
+        // if (target.name == "Stepper") {
+        //     let pairOfCards: HTMLMeterElement = <HTMLMeterElement>document.querySelector("meter");
+        //     pairOfCards.value = parseFloat(target.value);
+        // }
+
+        // Slider response (Cardsize)
+        if (target.name == "Slider") {
+        let sizeOfCards: HTMLProgressElement = <HTMLProgressElement>document.querySelector(".slider");
+        sizeOfCards.value = parseFloat(target.value);
+        }
+
+        // Color response (Background)
+        if (target.name == "Color") {
+            let backgroundColor: HTMLOutputElement = <HTMLOutputElement>document.querySelector(".backgroundColor");
+            backgroundColor.value = target.value;
+        }
+
+        // Color response (Backside)
+        if (target.name == "Color") {
+            let backsideColor: HTMLOutputElement = <HTMLOutputElement>document.querySelector(".backsideColor");
+            backsideColor.value = target.value;
+        }
+
+        // Color response (Font)
+        if (target.name == "Color") {
+            let fontColor: HTMLOutputElement = <HTMLOutputElement>document.querySelector(".fontColor");
+            fontColor.value = target.value;
+        }
+
+        // Font response (Style)
+        if (target.type == "radio") {
+            let fontStyle: HTMLOutputElement = <HTMLOutputElement>document.querySelector("output");
+            fontStyle.value = target.value;
+        }
+    }
 
     //Karte initialisieren     
     function createCard(_cardContent: string): void {
         let card: HTMLElement = document.createElement("div");
+ 
         card.innerHTML = "<p>" + _cardContent + "</p>";
         card.setAttribute("class", "card hidden");
         cardArray.push(card);
         checkRest.push(card);
         card.addEventListener("click", clickHandler);
-    } 
+        // card.style.width =
+    }
 
     function clickHandler(_event: Event): void {
         let target: HTMLElement = <HTMLElement>_event.target;
@@ -71,8 +131,6 @@ namespace Aufgabe3 {
         }
     }
 
-   
-
     //Durstenfeld-Shuffle
     // tslint:disable-next-line: no-any
     function shuffleArray(_array: any[]): any[] {
@@ -89,13 +147,15 @@ namespace Aufgabe3 {
     function main(): void {
 
         //Popup für Kartenpaare
-        gameBoard();
+        gameBoard;
 
-        function gameBoard(): void {
-            // numPairs = parseInt(prompt("Anzahl der Kartenpaare (von 5-25 Paaren)");
-            // Sollte man eine andere Zahl eingeben, wird die Promt Box erneut aufgerufen.
-            if (numPairs < 5 || numPairs > 25) {
-                gameBoard();
+        function gameBoard(_event: Event): void {
+            let target: HTMLInputElement = <HTMLInputElement>_event.target;
+    
+            // Stepper response
+            if (target.name == "Stepper") {
+                let pairOfCards: HTMLMeterElement = <HTMLMeterElement>document.querySelector(".stepper");
+                numPairs = pairOfCards.value;
             }
         }
         //Karten erzeugen
@@ -113,5 +173,5 @@ namespace Aufgabe3 {
         }
     }
     //Event-Listener
-    document.addEventListener("DOMContentLoaded", main);
+    document.addEventListener("DOMContentLoaded", init);
 }

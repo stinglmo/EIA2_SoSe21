@@ -1,0 +1,85 @@
+html body{
+	font-family: "Roboto", "sans-serif";
+	background:linear-gradient(#90e77b, #093f1e);
+	margin: 0 auto;
+	width: 1280px;
+	height: 800px;
+	text-align: center;
+	margin: 0;
+	padding:0;
+	overflow: hidden;  
+}
+
+h2{
+	text-align: center;
+	font-size: 2em;	
+}
+
+/* Formular */
+input[type="radio"], input[type="checkbox"], label {
+	display: inline;
+}
+
+h1 {
+	grid-column: span 2;
+	text-align: center;
+}
+
+.formular {
+	width: 500px;
+	height: 300px;
+	text-align: center;
+	justify-content: center;
+	margin-top: 200px;
+	margin-left: 370px;
+}
+
+/* Memory */
+#game{
+	justify-content: center; 
+	text-align: center;
+}
+
+#playerbox{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	justify-content: center; 
+	text-align: center;
+}
+
+/* Kartenstyle */
+.card{
+	height: 200px;
+  	width: 200px;
+	border-radius: 10px;
+	margin: 0px 25px 25px 0px;
+	text-align: center;
+	font-size: 3.75em;
+}
+
+/* Kartenstati */
+.hidden{
+	background-color: black;
+	cursor: pointer;
+}
+
+.hidden p{
+	display: none;
+}
+
+.open{
+	background-color: rgb(250, 252, 251);
+}
+
+.taken{
+	visibility: hidden;
+}
+
+.taken p{
+	display: none;
+}
+
+
+
+

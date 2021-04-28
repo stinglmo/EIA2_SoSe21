@@ -8,7 +8,57 @@ var Aufgabe3;
     let cardsOpen = 0;
     let cardsOpenArray = [];
     let checkRest = [];
-    // Start Formular
+    // Start game
+    let startMemory = document.querySelector(".start");
+    startMemory.addEventListener("click", main);
+    function init(_event) {
+        console.log("Init");
+        let fieldsets = document.querySelectorAll("fieldset");
+        // Install listeners on fieldsets
+        for (let i = 0; i < fieldsets.length; i++) {
+            let fieldset = fieldsets[i];
+            fieldset.addEventListener("change", handleChange);
+            fieldset.addEventListener("input", handleChange);
+        }
+    }
+    function handleChange(_event) {
+        let target = _event.target;
+        console.log();
+        if (_event.type == "change")
+            console.warn("Change: " + target.name + " = " + target.value, _event);
+        else
+            console.log("Input: " + target.name + " = " + target.value, _event);
+        // Stepper response
+        // if (target.name == "Stepper") {
+        //     let pairOfCards: HTMLMeterElement = <HTMLMeterElement>document.querySelector("meter");
+        //     pairOfCards.value = parseFloat(target.value);
+        // }
+        // Slider response (Cardsize)
+        if (target.name == "Slider") {
+            let sizeOfCards = document.querySelector(".slider");
+            sizeOfCards.value = parseFloat(target.value);
+        }
+        // Color response (Background)
+        if (target.name == "Color") {
+            let backgroundColor = document.querySelector(".backgroundColor");
+            backgroundColor.value = target.value;
+        }
+        // Color response (Backside)
+        if (target.name == "Color") {
+            let backsideColor = document.querySelector(".backsideColor");
+            backsideColor.value = target.value;
+        }
+        // Color response (Font)
+        if (target.name == "Color") {
+            let fontColor = document.querySelector(".fontColor");
+            fontColor.value = target.value;
+        }
+        // Font response (Style)
+        if (target.type == "radio") {
+            let fontStyle = document.querySelector("output");
+            fontStyle.value = target.value;
+        }
+    }
     //Karte initialisieren     
     function createCard(_cardContent) {
         let card = document.createElement("div");
@@ -17,6 +67,7 @@ var Aufgabe3;
         cardArray.push(card);
         checkRest.push(card);
         card.addEventListener("click", clickHandler);
+        // card.style.width =
     }
     function clickHandler(_event) {
         let target = _event.target;
@@ -80,12 +131,13 @@ var Aufgabe3;
     // Main Funktion zum Anzeigen des Memorys
     function main() {
         //Popup für Kartenpaare
-        gameBoard();
-        function gameBoard() {
-            // numPairs = parseInt(prompt("Anzahl der Kartenpaare (von 5-25 Paaren)");
-            // Sollte man eine andere Zahl eingeben, wird die Promt Box erneut aufgerufen.
-            if (numPairs < 5 || numPairs > 25) {
-                gameBoard();
+        gameBoard;
+        function gameBoard(_event) {
+            let target = _event.target;
+            // Stepper response
+            if (target.name == "Stepper") {
+                let pairOfCards = document.querySelector(".stepper");
+                numPairs = pairOfCards.value;
             }
         }
         //Karten erzeugen
@@ -101,6 +153,6 @@ var Aufgabe3;
         }
     }
     //Event-Listener
-    document.addEventListener("DOMContentLoaded", main);
+    document.addEventListener("DOMContentLoaded", init);
 })(Aufgabe3 || (Aufgabe3 = {}));
-//# sourceMappingURL=Aufgabe2.2.js.map
+//# sourceMappingURL=Aufgabe3.js.map
