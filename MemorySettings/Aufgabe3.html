@@ -13,34 +13,35 @@
 			<div id="playerbox"></div>
 		</section>
 
-		<fieldset class="formular">
+		<form>
+		<fieldset class="formular visible">
 			<legend> Presets </legend> 
 			Choose the pair of cards
 			<input class="stepper" type="number" name="Stepper" step="1" min="5" max="25" value="5" />
 			<hr />
 			Choose the size of cards
-			<input class="slider" type="range" name="Slider" min="5" max="25" step="1" value="0" />
+			<input class="slider" type="range" name="Slider" min="100" max="200" step="10" value="100" />
 			<hr />
 			Choose the background-color
-			<input class="backgroundColor" type="color" name="Color" placeholder="red" id="color" value="#ff0000">
+			<input class="backgroundColor" type="color" name="BGColor" placeholder="red" id="bGcolor" value="#ff0000">
 			<hr />
 			Choose the backside-color
-			<input class="backsideColor" type="color" name="Color" placeholder="red" id="color" value="#ff0000">
+			<input class="backsideColor" type="color" name="BSColor" placeholder="red" id="bScolor" value="#ff0000">
 			<hr />
 			Choose the font-color
-			<input class="fontColor" type="color" name="Color" placeholder="red" id="color" value="#ff0000">
+			<input class="fontColor" type="color" name="FColor" placeholder="red" id="font-color" value="#000000">
 			<hr />
 			Choose the font-style
-			<input type="radio" name="Radiogroup" value="radio1" id="radio1" />
+			<input type="radio" name="Radiogroup" value="Arial" id="radio1" />
 			<label for="radio1">Font 1</label>
-			<input type="radio" name="Radiogroup" value="radio2" id="radio2" />
+			<input type="radio" name="Radiogroup" value="Calibri" id="radio2" />
 			<label for="radio2">Font 2</label>
-			<input type="radio" name="Radiogroup" value="radio3" id="radio3" />
+			<input type="radio" name="Radiogroup" value="Helvetica" id="radio3" />
 			<label for="radio3">Font 3</label>
 			<hr />
-			<button class="start">Start</button>
-			
+			<button type="button" class="start">Start</button>
 		</fieldset>
+		</form>
 
 	</body>
 </html>

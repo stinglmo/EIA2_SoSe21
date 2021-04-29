@@ -9,65 +9,46 @@ var Aufgabe3;
     let cardsOpenArray = [];
     let checkRest = [];
     // Start game
-    let startMemory = document.querySelector(".start");
-    startMemory.addEventListener("click", main);
-    function init(_event) {
-        console.log("Init");
-        let fieldsets = document.querySelectorAll("fieldset");
-        // Install listeners on fieldsets
-        for (let i = 0; i < fieldsets.length; i++) {
-            let fieldset = fieldsets[i];
-            fieldset.addEventListener("change", handleChange);
-            fieldset.addEventListener("input", handleChange);
-        }
+    window.addEventListener("load", startGame);
+    function startGame() {
+        let startMemory = document.querySelector(".start");
+        startMemory.addEventListener("click", main);
     }
-    function handleChange(_event) {
-        let target = _event.target;
-        console.log();
-        if (_event.type == "change")
-            console.warn("Change: " + target.name + " = " + target.value, _event);
-        else
-            console.log("Input: " + target.name + " = " + target.value, _event);
-        // Stepper response
-        // if (target.name == "Stepper") {
-        //     let pairOfCards: HTMLMeterElement = <HTMLMeterElement>document.querySelector("meter");
-        //     pairOfCards.value = parseFloat(target.value);
-        // }
-        // Slider response (Cardsize)
-        if (target.name == "Slider") {
-            let sizeOfCards = document.querySelector(".slider");
-            sizeOfCards.value = parseFloat(target.value);
-        }
-        // Color response (Background)
-        if (target.name == "Color") {
-            let backgroundColor = document.querySelector(".backgroundColor");
-            backgroundColor.value = target.value;
-        }
-        // Color response (Backside)
-        if (target.name == "Color") {
-            let backsideColor = document.querySelector(".backsideColor");
-            backsideColor.value = target.value;
-        }
-        // Color response (Font)
-        if (target.name == "Color") {
-            let fontColor = document.querySelector(".fontColor");
-            fontColor.value = target.value;
-        }
-        // Font response (Style)
-        if (target.type == "radio") {
-            let fontStyle = document.querySelector("output");
-            fontStyle.value = target.value;
-        }
-    }
+    // FormData - Objekt um in der Main Funktion die Werte des Formulars auszuwerten!
+    let formData;
+    let size;
+    let backGColor;
+    let backSColor;
+    let fontColor;
+    let fontStyle;
     //Karte initialisieren     
     function createCard(_cardContent) {
         let card = document.createElement("div");
         card.innerHTML = "<p>" + _cardContent + "</p>";
-        card.setAttribute("class", "card hidden");
+        card.classList.add("card");
+        card.classList.add("hidden");
         cardArray.push(card);
         checkRest.push(card);
         card.addEventListener("click", clickHandler);
-        // card.style.width =
+        // Slider response (Cardsize)
+        card.style.width = size + "px";
+        card.style.height = size + "px";
+        // Color response (Background)
+        if (backGColor) { // Prüfe ob es einen Wert hat
+            card.style.backgroundColor = backGColor.toString();
+        }
+        // Color response (Backside)
+        if (backSColor) {
+            card.style.background = backSColor.toString();
+        }
+        // Color response (Font)
+        if (fontColor) {
+            card.style.color = fontColor.toString();
+        }
+        // Font response (Style)
+        if (fontStyle) {
+            card.style.fontFamily = fontStyle.toString();
+        }
     }
     function clickHandler(_event) {
         let target = _event.target;
@@ -129,16 +110,27 @@ var Aufgabe3;
         return _array;
     }
     // Main Funktion zum Anzeigen des Memorys
-    function main() {
+    function main(_event) {
+        let fieldset = document.querySelector(".formular");
+        if (fieldset.classList.contains("visible")) {
+            fieldset.classList.remove("visible");
+            fieldset.classList.add("is-hidden");
+        }
         //Popup für Kartenpaare
-        gameBoard;
-        function gameBoard(_event) {
-            let target = _event.target;
-            // Stepper response
-            if (target.name == "Stepper") {
-                let pairOfCards = document.querySelector(".stepper");
-                numPairs = pairOfCards.value;
-            }
+        formData = new FormData(document.forms[0]); // weist der Variablen formData alle fieldsets zu
+        console.log(formData);
+        size = Number(formData.get("Slider")); // Ich hole mir mit dem Namen "Slider" den value, wird noch zu einer Number
+        backGColor = formData.get("BGColor"); // Entweder Wert oder null
+        backSColor = formData.get("BSColor");
+        fontColor = formData.get("FColor");
+        fontStyle = formData.get("radio");
+        // Stepper response
+        let pairOfCards = formData.get("Stepper");
+        if (pairOfCards) {
+            numPairs = Number(pairOfCards);
+        }
+        else {
+            numPairs = 5;
         }
         //Karten erzeugen
         for (let i = 0; i < numPairs; i++) {
@@ -152,7 +144,5 @@ var Aufgabe3;
             playerbox.appendChild(cardArray[i]);
         }
     }
-    //Event-Listener
-    document.addEventListener("DOMContentLoaded", init);
 })(Aufgabe3 || (Aufgabe3 = {}));
 //# sourceMappingURL=Aufgabe3.js.map

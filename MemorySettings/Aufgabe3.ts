@@ -1,4 +1,5 @@
 
+
 namespace Aufgabe3 {
 
     //Variablen deklarieren
@@ -10,76 +11,58 @@ namespace Aufgabe3 {
     let checkRest: HTMLElement[] = [];
 
     // Start game
-    let startMemory: HTMLElement = <HTMLElement>document.querySelector(".start");
-    startMemory.addEventListener("click", main);
+    window.addEventListener("load", startGame);
 
-    function init(_event: Event): void {
-        console.log("Init");
-        let fieldsets: NodeListOf<HTMLFieldSetElement> = document.querySelectorAll("fieldset");
-
-        // Install listeners on fieldsets
-        for (let i: number = 0; i < fieldsets.length; i++) {
-            let fieldset: HTMLFieldSetElement = fieldsets[i];
-            fieldset.addEventListener("change", handleChange);
-            fieldset.addEventListener("input", handleChange);
-        }
+    function startGame(): void {
+        let startMemory: HTMLElement = <HTMLElement>document.querySelector(".start");
+        startMemory.addEventListener("click", main);
     }
+   
+    // FormData - Objekt um in der Main Funktion die Werte des Formulars auszuwerten!
+    let formData: FormData;
+    let size: number;
+    let backGColor: FormDataEntryValue | null; 
+    let backSColor: FormDataEntryValue | null;
+    let fontColor: FormDataEntryValue | null;
+    let fontStyle: FormDataEntryValue | null;
 
-    function handleChange(_event: Event): void {
-        let target: HTMLInputElement = <HTMLInputElement>_event.target;
-        console.log();
-        if (_event.type == "change")
-            console.warn("Change: " + target.name + " = " + target.value, _event);
-        else
-            console.log("Input: " + target.name + " = " + target.value, _event);
-
-        // Stepper response
-        // if (target.name == "Stepper") {
-        //     let pairOfCards: HTMLMeterElement = <HTMLMeterElement>document.querySelector("meter");
-        //     pairOfCards.value = parseFloat(target.value);
-        // }
-
-        // Slider response (Cardsize)
-        if (target.name == "Slider") {
-        let sizeOfCards: HTMLProgressElement = <HTMLProgressElement>document.querySelector(".slider");
-        sizeOfCards.value = parseFloat(target.value);
-        }
-
-        // Color response (Background)
-        if (target.name == "Color") {
-            let backgroundColor: HTMLOutputElement = <HTMLOutputElement>document.querySelector(".backgroundColor");
-            backgroundColor.value = target.value;
-        }
-
-        // Color response (Backside)
-        if (target.name == "Color") {
-            let backsideColor: HTMLOutputElement = <HTMLOutputElement>document.querySelector(".backsideColor");
-            backsideColor.value = target.value;
-        }
-
-        // Color response (Font)
-        if (target.name == "Color") {
-            let fontColor: HTMLOutputElement = <HTMLOutputElement>document.querySelector(".fontColor");
-            fontColor.value = target.value;
-        }
-
-        // Font response (Style)
-        if (target.type == "radio") {
-            let fontStyle: HTMLOutputElement = <HTMLOutputElement>document.querySelector("output");
-            fontStyle.value = target.value;
-        }
-    }
 
     //Karte initialisieren     
     function createCard(_cardContent: string): void {
         let card: HTMLElement = document.createElement("div");
- 
+
         card.innerHTML = "<p>" + _cardContent + "</p>";
-        card.setAttribute("class", "card hidden");
+        card.classList.add("card");
+        card.classList.add("hidden");
+
         cardArray.push(card);
         checkRest.push(card);
         card.addEventListener("click", clickHandler);
-        // card.style.width =
+
+        // Slider response (Cardsize)
+        card.style.width = size + "px";
+        card.style.height = size + "px";
+
+        // Color response (Background)
+        if (backGColor) { // Prüfe ob es einen Wert hat
+            card.style.backgroundColor = backGColor.toString();
+        }
+        
+        // Color response (Backside)
+        if (backSColor) { 
+            card.style.background = backSColor.toString();
+        }
+
+        // Color response (Font)
+        if (fontColor) { 
+            card.style.color = fontColor.toString();
+        }
+
+        // Font response (Style)
+        if (fontStyle) { 
+            card.style.fontFamily = fontStyle.toString();
+        }
+
     }
 
     function clickHandler(_event: Event): void {
@@ -144,20 +127,33 @@ namespace Aufgabe3 {
     }
 
     // Main Funktion zum Anzeigen des Memorys
-    function main(): void {
+    function main(_event: Event): void {
 
-        //Popup für Kartenpaare
-        gameBoard;
-
-        function gameBoard(_event: Event): void {
-            let target: HTMLInputElement = <HTMLInputElement>_event.target;
-    
-            // Stepper response
-            if (target.name == "Stepper") {
-                let pairOfCards: HTMLMeterElement = <HTMLMeterElement>document.querySelector(".stepper");
-                numPairs = pairOfCards.value;
-            }
+        let fieldset: HTMLFormElement = <HTMLFormElement>document.querySelector(".formular");
+        if (fieldset.classList.contains("visible")) {
+            fieldset.classList.remove("visible");
+            fieldset.classList.add("is-hidden");
         }
+        //Popup für Kartenpaare
+        formData = new FormData(document.forms[0]); // weist der Variablen formData alle fieldsets zu
+        console.log(formData);
+        
+
+        size = Number(formData.get("Slider")); // Ich hole mir mit dem Namen "Slider" den value, wird noch zu einer Number
+        backGColor = formData.get("BGColor"); // Entweder Wert oder null
+        backSColor = formData.get("BSColor"); 
+        fontColor = formData.get("FColor"); 
+        fontStyle = formData.get("radio"); 
+
+        // Stepper response
+        let pairOfCards: FormDataEntryValue | null = formData.get("Stepper"); 
+        if (pairOfCards) {
+        numPairs = Number(pairOfCards);
+        }
+        else {
+            numPairs = 5;
+        }
+
         //Karten erzeugen
         for (let i: number = 0; i < numPairs; i++) {
             createCard(cardContent[i]);
@@ -172,6 +168,4 @@ namespace Aufgabe3 {
             playerbox.appendChild(cardArray[i]);
         }
     }
-    //Event-Listener
-    document.addEventListener("DOMContentLoaded", init);
 }
