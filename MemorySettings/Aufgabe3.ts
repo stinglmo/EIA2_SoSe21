@@ -143,7 +143,7 @@ namespace Aufgabe3 {
         backGColor = formData.get("BGColor"); // Entweder Wert oder null
         backSColor = formData.get("BSColor"); 
         fontColor = formData.get("FColor"); 
-        fontStyle = formData.get("radio"); 
+        fontStyle = formData.get("Radiogroup"); 
 
         // Stepper response
         let pairOfCards: FormDataEntryValue | null = formData.get("Stepper"); 
