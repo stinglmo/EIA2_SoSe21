@@ -2,8 +2,6 @@
 var generativeArt;
 (function (generativeArt) {
     window.addEventListener("load", draw);
-    // let generationButton: HTMLButtonElement = document.querySelector(".button")!; // Mit dem ! sage ich, dass selbst wenn es null ist, soll es trotzdem als Button behandlet werden!
-    // generationButton.addEventListener("click", draw);
     let crc2;
     let shapeNum = Math.floor(Math.random() * 10); // Random Anzahl an Formen zwischen 1 und 10
     let characters = ["a", "b", "c", "d", "e", "f", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]; // Characters für den Hexadezimal-Generator
@@ -42,6 +40,9 @@ var generativeArt;
             crc2.fillStyle = randColor; // Die jeweilige Farbe wird zugewiesen
             crc2.fill(); // Formen werden mit der Farbe (Hexadezimal-Code) ausgefüllt
         }
+        // Generation-Button
+        let generationButton = document.querySelector(".button"); // Mit dem ! sage ich, dass selbst wenn es null ist, soll es trotzdem als Button behandlet werden!
+        generationButton.addEventListener("click", draw);
     }
 })(generativeArt || (generativeArt = {}));
 //# sourceMappingURL=canvas.js.map
