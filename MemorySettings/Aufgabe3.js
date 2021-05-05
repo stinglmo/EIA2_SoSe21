@@ -17,7 +17,7 @@ var Aufgabe3;
     // FormData - Objekt um in der Main Funktion die Werte des Formulars auszuwerten!
     let formData;
     let size;
-    let backGColor;
+    let backGColor; // Kann auch null sein!
     let backSColor;
     let fontColor;
     let fontStyle;
@@ -92,6 +92,8 @@ var Aufgabe3;
     //     let firstNumber: number;
     //     let secondNumber: number;
     //     let date: object = secondNumber - firstNumber;
+    //     firstNumber = new Date
+    //     secondNumber = new Date
     // }
     function checkWin() {
         if (checkRest.length == 0) {
@@ -120,13 +122,13 @@ var Aufgabe3;
         formData = new FormData(document.forms[0]); // weist der Variablen formData alle fieldsets zu
         console.log(formData);
         size = Number(formData.get("Slider")); // Ich hole mir mit dem Namen "Slider" den value, wird noch zu einer Number
-        backGColor = formData.get("BGColor"); // Entweder Wert oder null
+        backGColor = formData.get("BGColor"); // Entweder Wert oder null --> Das checken wir dann
         backSColor = formData.get("BSColor");
         fontColor = formData.get("FColor");
         fontStyle = formData.get("Radiogroup");
         // Stepper response
         let pairOfCards = formData.get("Stepper");
-        if (pairOfCards) {
+        if (pairOfCards) { // Wenn es einen Wert hat
             numPairs = Number(pairOfCards);
         }
         else {

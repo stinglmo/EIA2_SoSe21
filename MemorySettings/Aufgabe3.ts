@@ -1,5 +1,3 @@
-
-
 namespace Aufgabe3 {
 
     //Variablen deklarieren
@@ -21,7 +19,7 @@ namespace Aufgabe3 {
     // FormData - Objekt um in der Main Funktion die Werte des Formulars auszuwerten!
     let formData: FormData;
     let size: number;
-    let backGColor: FormDataEntryValue | null; 
+    let backGColor: FormDataEntryValue | null; // Kann auch null sein!
     let backSColor: FormDataEntryValue | null;
     let fontColor: FormDataEntryValue | null;
     let fontStyle: FormDataEntryValue | null;
@@ -106,6 +104,8 @@ namespace Aufgabe3 {
     //     let firstNumber: number;
     //     let secondNumber: number;
     //     let date: object = secondNumber - firstNumber;
+    //     firstNumber = new Date
+    //     secondNumber = new Date
     // }
 
     function checkWin(): void {
@@ -140,14 +140,14 @@ namespace Aufgabe3 {
         
 
         size = Number(formData.get("Slider")); // Ich hole mir mit dem Namen "Slider" den value, wird noch zu einer Number
-        backGColor = formData.get("BGColor"); // Entweder Wert oder null
+        backGColor = formData.get("BGColor"); // Entweder Wert oder null --> Das checken wir dann
         backSColor = formData.get("BSColor"); 
         fontColor = formData.get("FColor"); 
         fontStyle = formData.get("Radiogroup"); 
 
         // Stepper response
         let pairOfCards: FormDataEntryValue | null = formData.get("Stepper"); 
-        if (pairOfCards) {
+        if (pairOfCards) { // Wenn es einen Wert hat
         numPairs = Number(pairOfCards);
         }
         else {

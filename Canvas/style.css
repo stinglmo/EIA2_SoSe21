@@ -1,0 +1,44 @@
+body {
+    background-color: rgba(94, 225, 235, 0.486);
+}
+
+h1 {
+    text-align: center;
+    color: rgb(6, 80, 85);
+    font-family: Verdana, Tahoma, sans-serif;
+}
+
+.canvas-container {
+    text-align: center;
+    margin: auto;
+    padding-top: 20px;
+}
+
+canvas {
+    border-radius: 25px;
+    border: solid 3px rgb(6, 80, 85);
+}
+
+.button-container {
+    text-align: center;
+    padding-top: 30px;
+}
+
+button {
+    height: 30px;
+    width: 100px;
+    border-radius: 25px;
+    background-color: rgb(0, 0, 2);
+    color: rgba(255, 255, 255, 0.541);
+    font-family: Arial, Helvetica, sans-serif;
+    border: 0;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    background-color:rgb(88, 70, 70);
+}
