@@ -1,11 +1,9 @@
 namespace generativeArt {
 
     window.addEventListener("load", draw);
-
-
-
-
+    
     let crc2: CanvasRenderingContext2D;
+
 
     let shapeNum: number = Math.floor(Math.random() * 10); // Random Anzahl an Formen zwischen 1 und 10
 
@@ -13,12 +11,17 @@ namespace generativeArt {
 
 
     function draw(): void {
+        
         let canvas: HTMLCanvasElement = document.querySelector("canvas")!;
         crc2 = canvas.getContext("2d")!;
 
         console.log(crc2);
 
         crc2.clearRect(0, 0, canvas.width, canvas.height); // Nach jedem Klick auf den Button, wird das canvas erstmal geleehrt
+
+        // Canvas --> weiß passt sich an
+        crc2.fillStyle = "white";
+        crc2.fillRect(0, 0, canvas.width, canvas.height);
 
         for (let i: number = 0; i < shapeNum; i++) { // Generiert die Anzahl an Formen, angepasst an shapeNum 
 
@@ -62,9 +65,11 @@ namespace generativeArt {
             crc2.fill(); // Formen werden mit der Farbe (Hexadezimal-Code) ausgefüllt
         }
 
-        // Generation-Button
-        let generationButton: HTMLButtonElement = document.querySelector(".button")!; // Mit dem ! sage ich, dass selbst wenn es null ist, soll es trotzdem als Button behandlet werden!
+        // Button:
+        let generationButton: HTMLButtonElement = document.querySelector("button")!; // Mit dem ! sage ich, 
+        // dass selbst wenn es null ist, soll es trotzdem als Button behandelt werden!
         generationButton.addEventListener("click", draw);
+        console.log(generationButton);
 
     }
 }

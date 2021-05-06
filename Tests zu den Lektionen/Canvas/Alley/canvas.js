@@ -10,14 +10,71 @@ var Virus;
             return;
         crc2 = canvas.getContext("2d");
         let horizon = crc2.canvas.height * golden; // Wird dann als Horizonhöhe verwendet
+        // Warum folgende 9 Zeilen für Allee?
+        let streetWidthBack = 100;
+        let streetWidthFront = 600;
+        let treesOffsetBack = 15;
+        let treesOffsetFront = 100;
+        let posMountains = { x: 0, y: horizon };
+        let posStreet = { x: crc2.canvas.width / 2, y: horizon };
+        let posTreesStart = { x: posStreet.x - streetWidthBack / 2 - treesOffsetBack, y: horizon };
+        let posTreesEnd = { x: crc2.canvas.width / 2 - streetWidthFront / 2 - treesOffsetFront, y: crc2.canvas.height };
         drawBackground();
         drawSun({ x: 100, y: 75 }); // Vektorobjekt für die Position
-        drawCloud({ x: 500, y: 125 }, { x: 250, y: 75 }); // Zwei Vektorobjekte für Position undGröße
-        drawStreet({ x: crc2.canvas.width / 2, y: horizon }, 100, 600);
-        drawMountains({ x: 0, y: horizon }, 75, 200, "grey", "white"); // Erste Bergkette
-        drawMountains({ x: 0, y: horizon }, 50, 150, "grey", "lightgrey"); // Zweite Bergkette
+        drawCloud({ x: 500, y: 125 }, { x: 250, y: 75 }); // Zwei Vektorobjekte für Position und Größe
+        drawStreet(posStreet, streetWidthBack, streetWidthFront);
+        drawMountains(posMountains, 75, 200, "grey", "white"); // Erste Bergkette (ist höher)
+        drawMountains(posMountains, 50, 150, "grey", "lightgrey"); // Zweite Bergkette --> 50 für minimale Pixelhöhe und 150 für maximale Pixelhöhe
+        // Für Allee:
+        drawTrees(8, posTreesStart, posTreesEnd, 0.1, 0.37, 1.4);
+        posTreesStart.x = posStreet.x + streetWidthBack / 2 + treesOffsetBack;
+        posTreesEnd.x = posTreesEnd.x + streetWidthFront + 2 * treesOffsetFront;
+        drawTrees(8, posTreesStart, posTreesEnd, 0.1, 0.37, 1.4);
     }
-    // Hintergrund als erstes. void weil sie nichts zurückgeben soll, sondern nur machen soll!
+    // Warum Bäume als erstes?
+    function drawTrees(_nTrees, _posStart, _posEnd, _minScale, _stepPos, _stepScale) {
+        console.log("Trees", _posStart, _posEnd);
+        let transform = crc2.getTransform();
+        let step = {
+            x: (_posEnd.x - _posStart.x) * _stepPos,
+            y: (_posEnd.y - _posStart.y) * _stepPos
+        };
+        crc2.translate(_posStart.x, _posStart.y);
+        crc2.scale(_minScale, _minScale);
+        do {
+            drawTree();
+            crc2.translate(step.x, step.y);
+            crc2.scale(_stepScale, _stepScale);
+        } while (--_nTrees > 0);
+        crc2.setTransform(transform);
+    }
+    function drawTree() {
+        console.log("Tree");
+        let nBranches = 50;
+        let maxRadius = 60;
+        let branch = new Path2D();
+        branch.arc(0, 0, maxRadius, 0, 2 * Math.PI);
+        crc2.fillStyle = "brown";
+        crc2.fillRect(0, 0, 20, -200);
+        crc2.save();
+        crc2.translate(0, -120);
+        do {
+            let y = Math.random() * 350;
+            let size = 1 - y / 700;
+            let x = (Math.random() - 0.5) * 2 * maxRadius;
+            crc2.save();
+            crc2.translate(0, -y);
+            crc2.scale(size, size);
+            crc2.translate(x, 0);
+            let colorAngle = 120 - Math.random() * 60;
+            let color = "HSLA(" + colorAngle + ", 50%, 30%, 0.5)";
+            crc2.fillStyle = color;
+            crc2.fill(branch);
+            crc2.restore();
+        } while (--nBranches > 0);
+        crc2.restore();
+    }
+    // Hintergrund als erstes. 
     function drawBackground() {
         console.log("Background");
         // Für den Verlauf brauchen wir einen Gradienten. Linear um dass der Farbverlauf von oben nach unten geht
@@ -75,6 +132,7 @@ var Virus;
     }
     // Straße:
     function drawStreet(_position, _widthBack, _widthFront) {
+        console.log("Street", _position, _widthBack, _widthFront);
         crc2.beginPath();
         crc2.moveTo(_position.x + _widthBack / 2, _position.y);
         crc2.lineTo(crc2.canvas.width / 2 + _widthFront / 2, crc2.canvas.height);
@@ -89,24 +147,26 @@ var Virus;
     }
     function drawMountains(_position, _min, _max, _colorLow, _colorHigh) {
         console.log("Mountains");
-        let stepMin = 50;
+        let stepMin = 50; // Minimale Schrittweite --> Horizontaler Abstand zwischen Bergen und Tälern
         let stepMax = 150;
-        let x = 0;
+        let x = 0; // wandert langsam von links nach rechts
         crc2.save();
-        crc2.translate(_position.x, _position.y);
+        crc2.translate(_position.x, _position.y); // Translate zu der Position, in x- und y-Richtung
+        // Pfad wird gebaut --> einmalig
         crc2.beginPath();
-        crc2.moveTo(0, 0);
-        crc2.lineTo(0, -_max);
+        crc2.moveTo(0, 0); // bezieht sich auf _position.x und _position.y --> Koordinatensystem ist verschoeben
+        crc2.lineTo(0, -_max); // Negativ, weil die Berge nach oben gehen
+        // Fußgesteuerte Schleife (unten wird erst entschieden, ob es weiter geht)
         do {
-            x += stepMin + Math.random() * (stepMax - stepMin);
+            x += stepMin + Math.random() * (stepMax - stepMin); // x wird um eine Zufallszahl erhöhrt werden (mind. stepMin) und Anteil zwischen Bereich stepMin und stepMax
             let y = -_min - Math.random() * (_max - _min);
-            crc2.lineTo(x, y);
+            crc2.lineTo(x, y); // Linienzug wird fortgeführt
         } while (x < crc2.canvas.width);
-        crc2.lineTo(x, 0);
-        crc2.closePath();
+        crc2.lineTo(x, 0); // Wieder auf Höhe 0
+        crc2.closePath(); // Vor allem für Füllung wichtig
         let gradient = crc2.createLinearGradient(0, 0, 0, -_max);
-        gradient.addColorStop(0, _colorLow);
-        gradient.addColorStop(0.7, _colorHigh);
+        gradient.addColorStop(0, _colorLow); // Farbhaltepunkt
+        gradient.addColorStop(0.7, _colorHigh); // Farbhaltepunkt --> Nicht 1, weil manche Spitzen nicht so hoch gehen
         crc2.fillStyle = gradient;
         crc2.fill();
         crc2.restore();
