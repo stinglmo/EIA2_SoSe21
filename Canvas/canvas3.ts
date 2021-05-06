@@ -1,4 +1,5 @@
 
+
 namespace generativeArt3 {
 
     window.addEventListener("load", draw);
@@ -13,6 +14,10 @@ namespace generativeArt3 {
 
     function draw(_event: Event): void {
 
+        let generationButton: HTMLButtonElement = document.querySelector("button")!;
+        generationButton.addEventListener("click", draw);
+        console.log(generationButton);
+
         let canvas: HTMLCanvasElement = document.querySelector("canvas")!;
         crc2 = canvas.getContext("2d")!;
         console.log(crc2);
@@ -20,6 +25,8 @@ namespace generativeArt3 {
         // Canvas
         crc2.fillStyle = "white";
         crc2.fillRect(0, 0, canvas.width, canvas.height); // mit weiß füllen
+        crc2.resetTransform(); // damit der Button immer wieder funktioniert
+        crc2.clearRect(0, 0, canvas.width, canvas.height);
 
         // Positionen und Ausbreitungen werden festgelegt
         drawBigCircles({ x: 600, y: 600 }, { x: 1000, y: 1000 }); // 1. Position, 2. Ausbreitung
@@ -139,10 +146,5 @@ namespace generativeArt3 {
 
 
     }
-
-    // Button:
-    let generationButton: HTMLButtonElement = document.querySelector("button")!;
-    generationButton.addEventListener("click", draw);
-    console.log(generationButton);
 
 }
