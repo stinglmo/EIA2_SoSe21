@@ -27,52 +27,54 @@ var Virus;
         drawMountains(posMountains, 50, 150, "grey", "lightgrey"); // Zweite Bergkette --> 50 für minimale Pixelhöhe und 150 für maximale Pixelhöhe
         // Für Allee:
         drawTrees(8, posTreesStart, posTreesEnd, 0.1, 0.37, 1.4);
-        posTreesStart.x = posStreet.x + streetWidthBack / 2 + treesOffsetBack;
+        posTreesStart.x = posStreet.x + streetWidthBack / 2 + treesOffsetBack; // Wie viele Bäume, wo sollen sie SVGPathElement, wo sollen sie starten/änden
         posTreesEnd.x = posTreesEnd.x + streetWidthFront + 2 * treesOffsetFront;
-        drawTrees(8, posTreesStart, posTreesEnd, 0.1, 0.37, 1.4);
+        drawTrees(8, posTreesStart, posTreesEnd, 0.1, 0.37, 1.4); // Allee mit zwei Baumreihen auf beiden Seiten
     }
-    // Warum Bäume als erstes?
+    // Baumallee - Funktion
     function drawTrees(_nTrees, _posStart, _posEnd, _minScale, _stepPos, _stepScale) {
         console.log("Trees", _posStart, _posEnd);
-        let transform = crc2.getTransform();
+        let transform = crc2.getTransform(); // Damit es zurückgesetzt werden kann --> macht an der Stelle das gleiche wie save
         let step = {
             x: (_posEnd.x - _posStart.x) * _stepPos,
             y: (_posEnd.y - _posStart.y) * _stepPos
         };
-        crc2.translate(_posStart.x, _posStart.y);
-        crc2.scale(_minScale, _minScale);
+        crc2.translate(_posStart.x, _posStart.y); // Koordinatensystem verschoben
+        crc2.scale(_minScale, _minScale); // Skalierung im Koordinatensystem, damit die Bäume immer kleiner werden können
         do {
             drawTree();
-            crc2.translate(step.x, step.y);
-            crc2.scale(_stepScale, _stepScale);
-        } while (--_nTrees > 0);
-        crc2.setTransform(transform);
+            crc2.translate(step.x, step.y); // Verschiebung ist ein Vektor --> Koordinatensystem wird verschoben
+            crc2.scale(_stepScale, _stepScale); // Koordinatensystem wird nach vorne größer --> Scale: 1.4
+        } while (--_nTrees > 0); // Entscheidungsknoten: Bin ich mit Baumposition noch im Canvas? Dann soll noch gemalt werden! Bäume wird druchgezählt
+        crc2.setTransform(transform); // Transformation abrufen, die gespeichert wurde --> Besser als save und restore, weil es da nach dem Stapelsystem geht
     }
+    // Baumfunktion
     function drawTree() {
         console.log("Tree");
-        let nBranches = 50;
-        let maxRadius = 60;
-        let branch = new Path2D();
-        branch.arc(0, 0, maxRadius, 0, 2 * Math.PI);
-        crc2.fillStyle = "brown";
+        let nBranches = 50; // Anzahl Äste
+        let maxRadius = 60; // Radius der Blätter
+        let branch = new Path2D(); // Voller Kreis mit Maximalradius --> Pfad wird gespeichert und kann man wieder verwenden
+        branch.arc(0, 0, maxRadius, 0, 2 * Math.PI); // Zentrum ist immer 0,0
+        crc2.fillStyle = "brown"; // Brauner Stamm
         crc2.fillRect(0, 0, 20, -200);
         crc2.save();
-        crc2.translate(0, -120);
+        crc2.translate(0, -120); // Damit es immer von der gleichen Stelle startet
         do {
-            let y = Math.random() * 350;
-            let size = 1 - y / 700;
-            let x = (Math.random() - 0.5) * 2 * maxRadius;
+            let y = Math.random() * 350; // y von 0 bis 350 für die Höhe
+            let size = 1 - y / 700; // Größe 1-y:700 --> y kann max 0.5 sein! Man zieht umso mehr ab, je weiter man nach oben kommt  --> Desto kleiner werden die Büsche 
+            let x = (Math.random() - 0.5) * 2 * maxRadius; // Etwas zufälliges zwischen min. und max. Radius 
             crc2.save();
-            crc2.translate(0, -y);
-            crc2.scale(size, size);
-            crc2.translate(x, 0);
-            let colorAngle = 120 - Math.random() * 60;
-            let color = "HSLA(" + colorAngle + ", 50%, 30%, 0.5)";
+            crc2.translate(0, -y); // Erst Translation
+            crc2.scale(size, size); // Dann schrumpft 
+            crc2.translate(x, 0); // Je höher man nach oben geht, desto kleiner ist das Koordinatensystem --> x wirkt nicht so stark 
+            // --> Büschel sind auch näher am Stamm und es kommt zu einer Zypressenform
+            let colorAngle = 120 - Math.random() * 60; // 120 --> volles grün aber durch 60 hohe Abweichung 
+            let color = "HSLA(" + colorAngle + ", 50%, 30%, 0.5)"; // Nur der Farbwinkel wird verändert, 50% moderate Sättigung, 30% sehr dunkel, Deckkraft 0.5
             crc2.fillStyle = color;
             crc2.fill(branch);
             crc2.restore();
-        } while (--nBranches > 0);
-        crc2.restore();
+        } while (--nBranches > 0); // So lange noch nicht alle Äste gezeichnet wurden
+        crc2.restore(); // Ursprüngliche Transformation wiederherstellen
     }
     // Hintergrund als erstes. 
     function drawBackground() {
