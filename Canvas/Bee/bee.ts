@@ -310,15 +310,15 @@ namespace Canvas {
         crc2.strokeStyle = "#556B2F";
         crc2.fillStyle = "#556B2F";
 
-        crc2.fillRect(_x - 10, _y + 5, 4, 55);
+        crc2.fillRect(_x - 2, _y + 10, 4, 55); // Dritter Wert = Breite Stiel, vierter Wert = Länge
 
         //Blätter 
-        crc2.moveTo(_x - 10, _y + 30);
-        crc2.lineTo(_x + 5, _y + 15);
-        crc2.moveTo(_x - 10, _y + 40);
-        crc2.lineTo(_x - 20, _y + 30);
-        crc2.moveTo(_x - 10, _y + 55);
-        crc2.lineTo(_x + 2, _y + 40);
+        crc2.moveTo(_x, _y + 30);
+        crc2.lineTo(_x + 10, _y + 15);
+        crc2.moveTo(_x, _y + 40);
+        crc2.lineTo(_x - 10, _y + 20);
+        crc2.moveTo(_x, _y + 55);
+        crc2.lineTo(_x + 12, _y + 35);
 
         crc2.stroke();
         crc2.fill();
@@ -328,17 +328,19 @@ namespace Canvas {
         crc2.fillStyle = "#DB2511";
 
         crc2.moveTo(_x, _y);
-        crc2.arc(_x - 5, _y - 20, 10, 0, 2 * Math.PI);
-        crc2.arc(_x + 4, _y - 8, 10, 0, 2 * Math.PI);
-        crc2.arc(_x - 10, _y + 2, 10, 0, 2 * Math.PI);
-        crc2.arc(_x - 20, _y - 10, 10, 0, 2 * Math.PI);
+        crc2.arc(_x, _y - 9, 7, 0, 2 * Math.PI);
+        crc2.arc(_x + 6, _y + 6, 7, 0, 2 * Math.PI);
+        crc2.arc(_x - 6, _y + 6, 7, 0, 2 * Math.PI);
+        crc2.arc(_x - 8, _y - 4, 7, 0, 2 * Math.PI);
+        crc2.arc(_x + 8, _y - 4, 7, 0, 2 * Math.PI);
+       
 
         crc2.fill();
 
         //Blütenmitte
         crc2.beginPath();
         crc2.fillStyle = "#3B170B";
-        crc2.arc(_x - 8, _y - 7, 5, 0, 2 * Math.PI);
+        crc2.arc(_x, _y, 5, 0, 2 * Math.PI);
 
         crc2.closePath();
         crc2.fill();
