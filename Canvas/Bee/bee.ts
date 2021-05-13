@@ -6,18 +6,18 @@ namespace Canvas {
     let canvas: HTMLCanvasElement;
 
     // Start
-    function handleLoad(_event: Event): void { 
+    function handleLoad(_event: Event): void {
 
         canvas = document.getElementsByTagName("canvas")[0];
         crc2 = canvas.getContext("2d")!;
 
-        
-        drawSky(0, 0, "#88d1CF", "#48d1FF"); 
+
+        drawSky(0, 0, "#88d1CF");
         drawMountainBig(500, 310, "#a9a9a9"); // Hinten
         drawMountainSmall(170, 320, "#a9a9a9"); // Vorne
-        drawMeadow(0, 0); 
+        drawMeadow(0, 0);
         drawSun(560, 120, "#FFFF00", "#FFDF00"); // dritter Wert Sonnenstrahlen
-        
+
         drawTree(750, 300); // rechter Rand
         drawBushBig(860, 380, "#556B2F");
         drawBushSmall(90, 380, "#556B2F");
@@ -32,11 +32,10 @@ namespace Canvas {
         drawTulip(900, 600);
 
 
-        // For-Loop zufällige Verteilung der Blumen - manchmal noch übereinander oder auf dem Busch, wie kann ich das vermeiden?
-        for (var i: number = 0; i < 80; i++) {
+        // For-Loop zufällige Verteilung der Blumen - von hinten nach vorne
+        for (var height: number = 450; height < 630; height += 2) {
 
-            var randomFlower: number = Math.floor((Math.random() * 3)); 
-            var height: number = Math.floor((Math.random() * 255) + 380);
+            var randomFlower: number = Math.floor((Math.random() * 3));
             var width: number = Math.floor((Math.random() * 1100) - 10);
 
             switch (randomFlower) {
@@ -63,7 +62,7 @@ namespace Canvas {
         gradient.addColorStop(0.7, "#66CD00");
         gradient.addColorStop(0.9, "#66CD00");
         gradient.addColorStop(1.0, "#458B00");
-        
+
         crc2.beginPath();
         crc2.strokeStyle = gradient;
         crc2.fillStyle = gradient;
@@ -79,11 +78,15 @@ namespace Canvas {
     }
 
     // Funktion Himmel
-    function drawSky(_x: number, _y: number, _strokeColor: string, _fillColor: string): void {
+    function drawSky(_x: number, _y: number, _strokeColor: string): void {
+
+        var gradient: CanvasGradient = crc2.createLinearGradient(0, 300, 0, 10);
+        gradient.addColorStop(0, "#7BCDDF");
+        gradient.addColorStop(1, "#1874CD");
 
         crc2.beginPath();
         crc2.strokeStyle = _strokeColor;
-        crc2.fillStyle = _fillColor;
+        crc2.fillStyle = gradient;
 
         crc2.moveTo(_x, _y);
         crc2.lineTo(_x + 1280, _y);
@@ -109,7 +112,7 @@ namespace Canvas {
         gradient.addColorStop(0.8, "#6E6E7E");
         gradient.addColorStop(0.8, "#6E6E7E");
         gradient.addColorStop(1.0, "#3C3C3C");
-        
+
         //Berg
         crc2.fillStyle = gradient;
         crc2.moveTo(_x + 0, _y + 0);
@@ -132,7 +135,7 @@ namespace Canvas {
         crc2.fill();
         crc2.stroke();
         crc2.closePath();
-        
+
         //Linien im Berg  
         crc2.beginPath();
         crc2.strokeStyle = "grey";
@@ -141,7 +144,7 @@ namespace Canvas {
         crc2.lineTo(_x + 140, _y + 40);
         crc2.moveTo(_x + 240, _y - 40);
         crc2.lineTo(_x + 220, _y - 20);
-        crc2.stroke();   
+        crc2.stroke();
     }
 
     // Funktion kleiner Berg
@@ -158,7 +161,7 @@ namespace Canvas {
         gradient.addColorStop(0.8, "#6E6E7E");
         gradient.addColorStop(0.8, "#6E6E7E");
         gradient.addColorStop(1.0, "#3C3C3C");
-        
+
         //Berg
         crc2.fillStyle = gradient;
         crc2.moveTo(_x - 70, _y + 100);
@@ -178,7 +181,7 @@ namespace Canvas {
         crc2.fill();
         crc2.stroke();
         crc2.closePath();
-        
+
         //Linien im Berg  
         crc2.beginPath();
         crc2.strokeStyle = "grey";
@@ -187,9 +190,9 @@ namespace Canvas {
         crc2.lineTo(_x + 140, _y + 30);
         crc2.moveTo(_x + 220, _y - 10);
         crc2.lineTo(_x + 200, _y + 20);
-        crc2.stroke();   
+        crc2.stroke();
     }
-    
+
 
 
     // Funktion Sonne

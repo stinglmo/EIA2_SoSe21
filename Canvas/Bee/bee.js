@@ -8,7 +8,7 @@ var Canvas;
     function handleLoad(_event) {
         canvas = document.getElementsByTagName("canvas")[0];
         crc2 = canvas.getContext("2d");
-        drawSky(0, 0, "#88d1CF", "#48d1FF");
+        drawSky(0, 0, "#88d1CF");
         drawMountainBig(500, 310, "#a9a9a9"); // Hinten
         drawMountainSmall(170, 320, "#a9a9a9"); // Vorne
         drawMeadow(0, 0);
@@ -24,10 +24,9 @@ var Canvas;
         drawPoppy(550, 565);
         drawSunflower(760, 465);
         drawTulip(900, 600);
-        // For-Loop zufällige Verteilung der Blumen - manchmal noch übereinander oder auf dem Busch, wie kann ich das vermeiden?
-        for (var i = 0; i < 80; i++) {
+        // For-Loop zufällige Verteilung der Blumen - von hinten nach vorne
+        for (var height = 450; height < 630; height += 2) {
             var randomFlower = Math.floor((Math.random() * 3));
-            var height = Math.floor((Math.random() * 255) + 380);
             var width = Math.floor((Math.random() * 1100) - 10);
             switch (randomFlower) {
                 case 0:
@@ -61,10 +60,13 @@ var Canvas;
         crc2.fill();
     }
     // Funktion Himmel
-    function drawSky(_x, _y, _strokeColor, _fillColor) {
+    function drawSky(_x, _y, _strokeColor) {
+        var gradient = crc2.createLinearGradient(0, 300, 0, 10);
+        gradient.addColorStop(0, "#7BCDDF");
+        gradient.addColorStop(1, "#1874CD");
         crc2.beginPath();
         crc2.strokeStyle = _strokeColor;
-        crc2.fillStyle = _fillColor;
+        crc2.fillStyle = gradient;
         crc2.moveTo(_x, _y);
         crc2.lineTo(_x + 1280, _y);
         crc2.lineTo(_x + 1280, _y + 400);
