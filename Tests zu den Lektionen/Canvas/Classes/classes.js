@@ -19,16 +19,16 @@ var testClasses;
                 this.x += _addend.x; // Durch Addition entsteht ein neuer Vektor
                 this.y += _addend.y;
             }
-            // Methode set --> 
+            // Methode set --> // Wenn ich die Methode set vor dem Aufruf von scale schreibe, bekomme ich eine Fehlermeldung: scale nicht gefunden!
             set(_x, _y) {
-                this.x = _x; // Dem Wert der Eigenschaft x wird mit dem Parameter _x addiert.
+                this.x = _x; // Dem Wert der Eigenschaft x wird der Parameter _x zugewiesen.
                 this.y = _y;
             }
         }
         debugger;
         let v1 = new Vector();
         v1.scale(2);
-        console.log(v1); //Wenn ich v1 vor dem Aufruf von scale ausführen lasse, 
+        console.log(v1);
         // Konsolenausgabe:
         // Vector {x: NaN, y: NaN}
         // x: NaN
