@@ -17,6 +17,10 @@ var L09_Asteroids;
             this.x += _addend.x;
             this.y += _addend.y;
         }
+        copy() {
+            let clone = new Vector(this.x, this.y);
+            return (clone);
+        }
         // Ein Vektor mit zufälliger Richtung in einem bestimmten Längenbereich
         random(_minLength, _maxLength) {
             let length = _minLength + Math.random() * (_maxLength - _minLength);

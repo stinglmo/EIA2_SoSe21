@@ -22,6 +22,11 @@ namespace L09_Asteroids {
             this.y += _addend.y;
         }
 
+        copy(): Vector { // Neuer Vektor der zurückgegeben wird
+            let clone: Vector = new Vector(this.x, this.y);
+            return(clone);
+        }
+
         // Ein Vektor mit zufälliger Richtung in einem bestimmten Längenbereich
         random(_minLength: number, _maxLength: number): void { 
             let length: number = _minLength + Math.random() * (_maxLength - _minLength);

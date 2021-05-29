@@ -1,3 +1,11 @@
+/*
+Aufgabe: Meadow
+Name: Mona Stingl
+Matrikel: 267315
+Datum: 18.05.21
+Quellen: W3School und MDN
+*/
+
 
 namespace Canvas {
 
