@@ -1,0 +1,61 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    align-items: center;
+    flex-direction:column;
+    background-image: url(Bauernhof.JPEG);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: rgb(21, 68, 37);
+}
+
+.newDay-Button {
+    background-color: rgb(64, 170, 73);
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 15px;
+}
+
+.newDay-Button:hover {
+    background-color: rgb(11, 59, 15);
+}
+
+.storageDiv {
+    background-color: cornflowerblue;
+    font-size: small;
+    color: rgb(11, 59, 15);
+    opacity: 80%;
+    text-align: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 10px;
+    margin-left: 340px;
+    margin-right: 340px;
+}
+
+.songDiv {
+    background-color: cornflowerblue;
+    float: left;
+    font-size: small;
+    color: rgb(11, 59, 15);
+    opacity: 70%;
+    margin-top: 50px;
+    margin-left: 16px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.actionDiv {
+    background-color: rgb(44, 201, 78);
+    float: left;
+    font-size: small;
+    color: rgb(6, 8, 41);
+    opacity: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin: 29px;
+}
