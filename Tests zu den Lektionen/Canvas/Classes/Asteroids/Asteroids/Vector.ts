@@ -1,4 +1,4 @@
-namespace L09_Asteroids {
+namespace L10_Asteroids {
     export class Vector {
         x: number;
         y: number;

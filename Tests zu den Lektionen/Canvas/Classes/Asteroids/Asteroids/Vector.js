@@ -1,6 +1,6 @@
 "use strict";
-var L09_Asteroids;
-(function (L09_Asteroids) {
+var L10_Asteroids;
+(function (L10_Asteroids) {
     class Vector {
         constructor(_x, _y) {
             this.set(_x, _y);
@@ -29,6 +29,6 @@ var L09_Asteroids;
             this.scale(length);
         }
     }
-    L09_Asteroids.Vector = Vector;
-})(L09_Asteroids || (L09_Asteroids = {}));
+    L10_Asteroids.Vector = Vector;
+})(L10_Asteroids || (L10_Asteroids = {}));
 //# sourceMappingURL=Vector.js.map
