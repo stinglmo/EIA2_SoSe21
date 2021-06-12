@@ -44,4 +44,4 @@ var OMD;
     }
     OMD.Animal = Animal;
 })(OMD || (OMD = {}));
-//# sourceMappingURL=superclassAnimal.js.map
+//# sourceMappingURL=SuperclassAnimal.js.map

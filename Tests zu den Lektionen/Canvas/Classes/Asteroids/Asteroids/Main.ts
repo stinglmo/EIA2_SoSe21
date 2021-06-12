@@ -55,7 +55,7 @@ namespace L10_Asteroids {
 
     // Hauptprogramm kennt nur Größe, Position und Form des Asteroiden, deshalb soll Asteroid selbst prüfen, ob er getroffen wurde
     function getAsteroidHit(_hotspot: Vector): Asteroid | null {
-        for (let moveable of moveables) { // Array durchgehen mit Hilfde der Variable moveable: und Asteroiden nacheinander rausholen
+        for (let moveable of moveables) { // Array durchgehen mit Hilfe der Variable moveable: und Asteroiden nacheinander rausholen
             if (moveable instanceof Asteroid && moveable.isHit(_hotspot)) // Frage: Bist du eine Instanz von Asteroid?
                 // Prüfe, ob Asteroid getroffen wurde: Gebe den Asteroiden Position auf dem Bildschirm und prüfe ob er an der Position getroffen wurdest (das weiß das Hauptprogramm nicht, müsste Infos erst sammeln)
                 return moveable; // Übergib dich zurück an das aufrufende Programm
