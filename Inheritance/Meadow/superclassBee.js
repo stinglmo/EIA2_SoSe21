@@ -20,6 +20,23 @@ var Inheritance;
             this.drawBee();
             this.move();
         }
+        //Methode "move" - Biene bewegen
+        move() {
+            this.x += Math.random() * 5 - 4;
+            this.y += Math.random() * 6 - 3;
+            // damit die Bienen wieder erscheinen, sobald sie aus dem Bild geflogen sind.
+            for (let i = 0; i < Inheritance.z; i++) {
+                if (this.x < 0) { // wenn x kleiner als 0, dann x gleich der Canvas-Breite setzen
+                    this.x = Inheritance.crc2.canvas.width;
+                }
+                if (this.y < 0) { // wenn y kleiner als 0, dann y gleich der Canvas-Höhe setzen
+                    this.y = Inheritance.crc2.canvas.height;
+                }
+                if (this.y >= Inheritance.crc2.canvas.height) {
+                    this.y = 0;
+                }
+            }
+        }
         //Methode "drawBee" - Biene malen
         drawBee() {
             // Körper
@@ -75,23 +92,6 @@ var Inheritance;
             Inheritance.crc2.arc(this.x - 1, this.y - 10, 10, 0, 1.5);
             Inheritance.crc2.closePath();
             Inheritance.crc2.fill();
-        }
-        //Methode "move" - Biene bewegen
-        move() {
-            this.x += Math.random() * 5 - 4;
-            this.y += Math.random() * 6 - 3;
-            // damit die Bienen wieder erscheinen, sobald sie aus dem Bild geflogen sind.
-            for (let i = 0; i < Inheritance.z; i++) {
-                if (this.x < 0) { // wenn x kleiner als 0, dann x gleich der Canvas-Breite setzen
-                    this.x = Inheritance.crc2.canvas.width;
-                }
-                if (this.y < 0) { // wenn y kleiner als 0, dann y gleich der Canvas-Höhe setzen
-                    this.y = Inheritance.crc2.canvas.height;
-                }
-                if (this.y >= Inheritance.crc2.canvas.height) {
-                    this.y = 0;
-                }
-            }
         }
         //Methode "setRandomStyle" - Zufällige Farbe und (k)ein Stachel 
         setRandomStyle() {

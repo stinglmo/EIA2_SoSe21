@@ -1,8 +1,8 @@
 namespace L10_Asteroids { // Namespace bei allen Dateien gleich --> damit sie voneinander wissen
-    export class Moveable { // muss exportiert werden, damit man sie auf der anderen Seite (in der Main-Datei) verwenden kann
-        position: Vector;
-        velocity: Vector;
-        expendable: boolean = false; // wenn true --> Projectile ist verzichtbar, kann also gelöscht werden
+    export abstract class Moveable { // muss exportiert werden, damit man sie auf der anderen Seite (in der Main-Datei) verwenden kann
+        public position: Vector;
+        public velocity: Vector;
+        public expendable: boolean = false; // wenn true --> Projectile ist verzichtbar, kann also gelöscht werden
 
         constructor(_position?: Vector) { 
             // console.log("Moveable constructor");
@@ -22,7 +22,7 @@ namespace L10_Asteroids { // Namespace bei allen Dateien gleich --> damit sie vo
             this.velocity = new Vector(0, 0);
         }
 
-        move(_timeslice: number): void {
+        public move(_timeslice: number): void {
             // console.log("Asteroid move");
             let offset: Vector = this.velocity.copy(); // das Stückchen Weg was er gehen soll = neuer Vektor
             offset.scale(_timeslice);
@@ -40,8 +40,7 @@ namespace L10_Asteroids { // Namespace bei allen Dateien gleich --> damit sie vo
                 this.position.y -= crc2.canvas.height;
         }
 
-        draw(): void {
-            // console.log("Asteroid draw");
-        }
+        // Abstrakt weil kein Inhalt und nie aufgerufen werden kann - hat hier keinen Körper, wird in den Subklassen implementiert
+        public abstract draw(): void;
     }
 }

@@ -1,36 +1,24 @@
 
 namespace L10_Asteroids { // Namespace bei allen Dateien gleich --> damit sie voneinander wissen
     export class Asteroid extends Moveable { // muss exportiert werden, damit man sie auf der anderen Seite (in der Main-Datei) verwenden kann
-        position: Vector;
-        velocity: Vector;
-        type: number;
-        size: number;
+        
+        // Erst öffentlichen Eigenschaften schreiben
+        public size: number;
+        private type: number;
+        
 
         constructor(_size: number, _position?: Vector) { // Konstruktor soll Größe von draußen entgegennehmen --> ? für kann da sein, muss nicht, weil man nicht immer die Position mitgeben will
             console.log("Asteroid constructor");
 
             super(_position); // Subklasse referenziert Superklasse
-
-            if (_position) // hast du die Position bekommen, nimm sie,
-                // this.position = new Vector(_position.x, _position.y);  
-                this.position = _position.copy(); // von _position die Kopie aufrufen --> neuer Vektor, jeder der kleinen Asteroiden bekommt eine Kopie (Kopie kann unabhängig verändert werden)
-
-                // Man kann Objekte nicht gleichsetzen. Kleine Asteroiden (?) hält die Referenz auf ein Speicherobjekt welches etwas enthält
-                // Referenzieren gleichen Positionsvektor?
-
-                // POSITION IST REFERENZ AUF EIN OBJEKT, damit sie sich unabhängig voneinander verändern können...
-
-                else // ansonsten nehme die Position 0,0
-                this.position = new Vector(0, 0); // Position ist ein neuer Vektor
                 
-            this.velocity = new Vector(0, 0);
-            this.velocity.random(100, 200); // Bei größeren Screen langsamer
-
+            this.velocity = Vector.getRandom(100, 200); // zufälliger Vector mit zufälliger Richtung
+        
             this.type = Math.floor(Math.random() * 4); // Einer von vier Typen (Pfade im Array --> mit index drauf zugreifen)
             this.size = _size;
         }
 
-        draw(): void {
+        public draw(): void {
             // console.log("Asteroid draw");
             crc2.save(); // Aktuelle Transformation
             crc2.translate(this.position.x, this.position.y);
@@ -43,7 +31,7 @@ namespace L10_Asteroids { // Namespace bei allen Dateien gleich --> damit sie vo
 
         // "Gehirnzellen" --> Prüfe über einen Hotspot
         // Methode soll immer eine Aktivität beschreiben und wenn es eine Prüfung ist, ist es geschickt, wenn es mit "is" anfängt
-        isHit(_hotspot: Vector): boolean { // wenn getroffen ist der Wert von isHit == true
+        public isHit(_hotspot: Vector): boolean { // wenn getroffen ist der Wert von isHit == true
             let hitsize: number = 50 * this.size; // wird kleiner, je kleiner der Asteroid ist 
             // Trefferkasten: Mitte des Asteroids und Kasten um Asteroid... Frage: Überschreitet die Differenz eine bestimmte Größe?
             let difference: Vector = new Vector(_hotspot.x - this.position.x, _hotspot.y - this.position.y);

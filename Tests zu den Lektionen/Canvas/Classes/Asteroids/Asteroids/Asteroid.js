@@ -5,16 +5,7 @@ var L10_Asteroids;
         constructor(_size, _position) {
             console.log("Asteroid constructor");
             super(_position); // Subklasse referenziert Superklasse
-            if (_position) // hast du die Position bekommen, nimm sie,
-                // this.position = new Vector(_position.x, _position.y);  
-                this.position = _position.copy(); // von _position die Kopie aufrufen --> neuer Vektor, jeder der kleinen Asteroiden bekommt eine Kopie (Kopie kann unabhängig verändert werden)
-            // Man kann Objekte nicht gleichsetzen. Kleine Asteroiden (?) hält die Referenz auf ein Speicherobjekt welches etwas enthält
-            // Referenzieren gleichen Positionsvektor?
-            // POSITION IST REFERENZ AUF EIN OBJEKT, damit sie sich unabhängig voneinander verändern können...
-            else // ansonsten nehme die Position 0,0
-                this.position = new L10_Asteroids.Vector(0, 0); // Position ist ein neuer Vektor
-            this.velocity = new L10_Asteroids.Vector(0, 0);
-            this.velocity.random(100, 200); // Bei größeren Screen langsamer
+            this.velocity = L10_Asteroids.Vector.getRandom(100, 200); // zufälliger Vector mit zufälliger Richtung
             this.type = Math.floor(Math.random() * 4); // Einer von vier Typen (Pfade im Array --> mit index drauf zugreifen)
             this.size = _size;
         }

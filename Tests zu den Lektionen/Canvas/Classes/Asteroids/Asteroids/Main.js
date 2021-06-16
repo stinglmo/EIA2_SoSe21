@@ -17,18 +17,20 @@ var L10_Asteroids;
         console.log("Asteroids paths: ", L10_Asteroids.asteroidPaths);
         createAsteroids(5);
         // createShip();
-        canvas.addEventListener("mousedown", shootProjectile);
+        canvas.addEventListener("ufoShoots", handleUfoShot); // Ufos schießen
         canvas.addEventListener("mouseup", shootLaser);
         // canvas.addEventListener("keypress", handleKeypress);
         // canvas.addEventListener("mousemove", setHeading);
         window.setInterval(update, 20); // set-Intervall weil man den timeslice steuern kann --> alle 20 ms
     }
-    function shootProjectile(_event) {
+    function handleUfoShot(_event) {
+        let ufo = _event.detail.ufo;
+        shootProjectile(ufo.position);
+    }
+    function shootProjectile(_origin) {
         console.log("Shoot projectile");
-        let origin = new L10_Asteroids.Vector(_event.clientX - L10_Asteroids.crc2.canvas.offsetLeft, _event.clientY - L10_Asteroids.crc2.canvas.offsetTop);
-        let velocity = new L10_Asteroids.Vector(0, 0);
-        velocity.random(100, 100);
-        let projectile = new L10_Asteroids.Projectile(origin, velocity); // mit Ursprung und Geschwindigkeit
+        let velocity = L10_Asteroids.Vector.getRandom(100, 100); // Vectorklasse wird nach einem neuen selbstgebauten random Vector gefragt
+        let projectile = new L10_Asteroids.Projectile(_origin, velocity); // mit Ursprung und Geschwindigkeit
         moveables.push(projectile);
     }
     function shootLaser(_event) {

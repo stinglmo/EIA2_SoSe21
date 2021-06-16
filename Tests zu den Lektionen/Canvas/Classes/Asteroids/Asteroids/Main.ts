@@ -23,7 +23,7 @@ namespace L10_Asteroids {
         createAsteroids(5);
         // createShip();
 
-        canvas.addEventListener("mousedown", shootProjectile);
+        canvas.addEventListener("ufoShoots", handleUfoShot); // Ufos schießen
         canvas.addEventListener("mouseup", shootLaser);
         // canvas.addEventListener("keypress", handleKeypress);
         // canvas.addEventListener("mousemove", setHeading);
@@ -31,12 +31,15 @@ namespace L10_Asteroids {
         window.setInterval(update, 20); // set-Intervall weil man den timeslice steuern kann --> alle 20 ms
     }
 
-    function shootProjectile(_event: MouseEvent): void {
+    function handleUfoShot(_event: Event): void {
+        let ufo: Ufo = (<CustomEvent>_event). detail.ufo;
+        shootProjectile(ufo.position);
+    }
+
+    function shootProjectile(_origin: Vector): void {
         console.log("Shoot projectile");
-        let origin: Vector = new Vector(_event.clientX - crc2.canvas.offsetLeft, _event.clientY - crc2.canvas.offsetTop);
-        let velocity: Vector = new Vector(0, 0);
-        velocity.random(100, 100);
-        let projectile: Projectile = new Projectile(origin, velocity); // mit Ursprung und Geschwindigkeit
+        let velocity: Vector = Vector.getRandom(100, 100); // Vectorklasse wird nach einem neuen selbstgebauten random Vector gefragt
+        let projectile: Projectile = new Projectile(_origin, velocity); // mit Ursprung und Geschwindigkeit
         moveables.push(projectile);
 
     }

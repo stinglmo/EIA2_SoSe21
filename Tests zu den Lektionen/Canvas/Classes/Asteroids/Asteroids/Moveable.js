@@ -31,9 +31,6 @@ var L10_Asteroids;
             if (this.position.y > L10_Asteroids.crc2.canvas.height)
                 this.position.y -= L10_Asteroids.crc2.canvas.height;
         }
-        draw() {
-            // console.log("Asteroid draw");
-        }
     }
     L10_Asteroids.Moveable = Moveable;
 })(L10_Asteroids || (L10_Asteroids = {}));

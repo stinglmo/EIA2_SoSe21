@@ -1,6 +1,6 @@
 namespace L10_Asteroids { // Namespace bei allen Dateien gleich --> damit sie voneinander wissen
     export class Projectile extends Moveable { // muss exportiert werden, damit man sie auf der anderen Seite (in der Main-Datei) verwenden kann
-        position: Vector;
+        // position: Vector;
         velocity: Vector;
         lifetime: number;
         size: number;
