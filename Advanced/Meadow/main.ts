@@ -41,17 +41,21 @@ namespace Advanced {
             let width: number = Math.floor((Math.random() * 1100) - 10);
 
             // Blumenwiese aus Tulpen:
-            for (var n: number = 0; n < 30; n++) {
-                let t: SuperclassFlower = new Tulip(width, height);
-                t.nectarLevel = 1;
-                allFlowers.push(t);
-                // t.draw();
-                // console.log(t);
+            // for (var n: number = 0; n < 30; n++) {
+            //     let t: SuperclassFlower = new Tulip(width, height);
+            //     t.nectarLevel = 1;
+            //     allFlowers.push(t);
+            //     // t.draw();
+            //     // console.log(t);
 
-            }
+            // }
 
             //Spezielle Blumen (Sonnenblumen und Mohnblumen, jeweils 5) im Array speichern 
             for (let i: number = 0; i < 5; i++) {
+
+                let t: SuperclassFlower = new Tulip(width, height);
+                t.nectarLevel = 1;
+                allFlowers.push(t);
 
                 let p: SuperclassFlower = new Poppy(width, height);
                 p.nectarLevel = 1;
