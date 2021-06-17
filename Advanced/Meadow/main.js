@@ -28,30 +28,15 @@ var Advanced;
         // Blumen werden von hinten nach vorne gemalt
         for (var height = 450; height < 630; height += 4) { // 3er Schritt
             let width = Math.floor((Math.random() * 1100) - 10);
-            // Blumenwiese aus Tulpen:
-            // for (var n: number = 0; n < 30; n++) {
-            //     let t: SuperclassFlower = new Tulip(width, height);
-            //     t.nectarLevel = 1;
-            //     allFlowers.push(t);
-            //     // t.draw();
-            //     // console.log(t);
-            // }
-            //Spezielle Blumen (Sonnenblumen und Mohnblumen, jeweils 5) im Array speichern 
-            for (let i = 0; i < 5; i++) {
-                let t = new Advanced.Tulip(width, height);
-                t.nectarLevel = 1;
-                Advanced.allFlowers.push(t);
-                let p = new Advanced.Poppy(width, height);
-                p.nectarLevel = 1;
-                Advanced.allFlowers.push(p); // wird in das Array gepusht damit daraus später davon random Blumen (+Positionen) für die Bienen genommen werden können
-                // console.log(p);
-                // allFlowers[i].draw();
-                let s = new Advanced.Sunflower(width, height);
-                s.nectarLevel = 1;
-                Advanced.allFlowers.push(s);
-                // console.log(s);
-                // allFlowers[i].draw();
-            }
+            let t = new Advanced.Tulip(width, height);
+            t.nectarLevel = 1;
+            Advanced.allFlowers.push(t);
+            let p = new Advanced.Poppy(width, height);
+            p.nectarLevel = 1;
+            Advanced.allFlowers.push(p); // wird in das Array gepusht damit daraus später davon random Blumen (+Positionen) für die Bienen genommen werden können
+            let s = new Advanced.Sunflower(width, height);
+            s.nectarLevel = 1;
+            Advanced.allFlowers.push(s);
         }
         // Nectarlevel
         window.setInterval(function () {
