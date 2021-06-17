@@ -9,10 +9,12 @@ Quellen: W3School, MDN und Unterrichtsmaterial
 namespace Inheritance {
 
     // Vererbt alles an die Subklassen: poppy, sunflower und tulip
-    export class SuperclassFlower {
+    // Abstrakt wegen draw
+    export abstract class SuperclassFlower {
 
         x: number;
         y: number;
+        public nectarLevel: number;
 
         constructor(_x: number, _y: number) {
 
@@ -20,10 +22,8 @@ namespace Inheritance {
             this.y = _y;
         }
 
-        //Methode draw
-        // draw(): void {
-        //     console.log();
-        // }
+        // Methode draw
+        abstract draw(): void;
 
 
 

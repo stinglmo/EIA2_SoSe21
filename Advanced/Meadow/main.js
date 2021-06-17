@@ -3,7 +3,7 @@
 Aufgabe: Meadow
 Name: Mona Stingl
 Matrikel: 267315
-Datum: 07.06.21
+Datum: 17.06.21
 Quellen: W3School, MDN und Unterrichtsmaterial
 */
 var Advanced;
@@ -22,6 +22,8 @@ var Advanced;
         //Hintergund mittels einer Klasse erstellen
         let bG = new Advanced.Background;
         console.log(bG); // nicht notwendig, aber der Linter spinnt sonst rum.
+        //Speichern des Canvas als Bild (natürlich nachdem das Hintergrundbild gemalt wurde)
+        imgData = Advanced.crc2.getImageData(0, 0, canvas.width, canvas.height);
         //Blumenwiese:
         // Blumen werden von hinten nach vorne gemalt
         for (var height = 450; height < 630; height += 4) { // 3er Schritt
@@ -29,24 +31,33 @@ var Advanced;
             // Blumenwiese aus Tulpen:
             for (var n = 0; n < 30; n++) {
                 let t = new Advanced.Tulip(width, height);
+                t.nectarLevel = 1;
                 Advanced.allFlowers.push(t);
                 // t.draw();
-                console.log(t);
+                // console.log(t);
             }
             //Spezielle Blumen (Sonnenblumen und Mohnblumen, jeweils 5) im Array speichern 
             for (let i = 0; i < 5; i++) {
                 let p = new Advanced.Poppy(width, height);
+                p.nectarLevel = 1;
                 Advanced.allFlowers.push(p); // wird in das Array gepusht damit daraus später davon random Blumen (+Positionen) für die Bienen genommen werden können
-                console.log(p);
+                // console.log(p);
                 // allFlowers[i].draw();
                 let s = new Advanced.Sunflower(width, height);
+                s.nectarLevel = 1;
                 Advanced.allFlowers.push(s);
-                console.log(s);
+                // console.log(s);
                 // allFlowers[i].draw();
             }
         }
-        //Speichern des Canvas als Bild (natürlich nachdem das Hintergrundbild gemalt wurde)
-        imgData = Advanced.crc2.getImageData(0, 0, canvas.width, canvas.height);
+        // Nectarlevel
+        window.setInterval(function () {
+            for (let flower of Advanced.allFlowers) {
+                if (flower.nectarLevel >= 0) {
+                    flower.nectarLevel -= 0.1;
+                }
+            }
+        }, 3000); // immer gleiche Höhe wie function
         //Erscheinen der 10 Bienen am Ausgang des Bienenstocks (beim Laden)
         for (let i = 0; i < Advanced.z; i++) {
             moreBees(_event);
@@ -77,6 +88,10 @@ var Advanced;
         //Bei Klick / Touch auf den Canvas erscheint eine neue Biene am Ausgang des Bienenstocks.       
         canvas.addEventListener("touchend", moreBees);
         canvas.addEventListener("click", moreBees);
+        // alle Blumen malen
+        for (let flower of Advanced.allFlowers) {
+            flower.draw();
+        }
         // Große und kleine Wolken werden gemalt und animiert
         for (let i = 0; i < Advanced.allClouds.length; i++) {
             for (let bigClouds of Advanced.allClouds) { // Array durchgehen mit Hilfe der Variable bigClouds: und große Wolken nacheinander rausholen

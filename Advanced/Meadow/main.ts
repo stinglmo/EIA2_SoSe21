@@ -3,7 +3,7 @@
 Aufgabe: Meadow 
 Name: Mona Stingl
 Matrikel: 267315
-Datum: 07.06.21
+Datum: 17.06.21
 Quellen: W3School, MDN und Unterrichtsmaterial
 */
 
@@ -31,6 +31,8 @@ namespace Advanced {
         let bG: Background = new Background;
         console.log(bG); // nicht notwendig, aber der Linter spinnt sonst rum.
 
+        //Speichern des Canvas als Bild (natürlich nachdem das Hintergrundbild gemalt wurde)
+        imgData = crc2.getImageData(0, 0, canvas.width, canvas.height);
 
         //Blumenwiese:
 
@@ -41,30 +43,39 @@ namespace Advanced {
             // Blumenwiese aus Tulpen:
             for (var n: number = 0; n < 30; n++) {
                 let t: SuperclassFlower = new Tulip(width, height);
+                t.nectarLevel = 1;
                 allFlowers.push(t);
                 // t.draw();
-                console.log(t);
-                
+                // console.log(t);
+
             }
 
             //Spezielle Blumen (Sonnenblumen und Mohnblumen, jeweils 5) im Array speichern 
             for (let i: number = 0; i < 5; i++) {
 
                 let p: SuperclassFlower = new Poppy(width, height);
+                p.nectarLevel = 1;
                 allFlowers.push(p); // wird in das Array gepusht damit daraus später davon random Blumen (+Positionen) für die Bienen genommen werden können
-                console.log(p);
+                // console.log(p);
                 // allFlowers[i].draw();
 
                 let s: SuperclassFlower = new Sunflower(width, height);
+                s.nectarLevel = 1;
                 allFlowers.push(s);
-                console.log(s);
+                // console.log(s);
                 // allFlowers[i].draw();
             }
         }
 
-        //Speichern des Canvas als Bild (natürlich nachdem das Hintergrundbild gemalt wurde)
-        imgData = crc2.getImageData(0, 0, canvas.width, canvas.height);
-
+        // Nectarlevel
+        window.setInterval(
+            function (): void {
+                for (let flower of allFlowers) {
+                    if (flower.nectarLevel >= 0) {
+                        flower.nectarLevel -= 0.1;
+                    }
+                }
+        },  3000); // immer gleiche Höhe wie function
 
         //Erscheinen der 10 Bienen am Ausgang des Bienenstocks (beim Laden)
         for (let i: number = 0; i < z; i++) {
@@ -106,29 +117,33 @@ namespace Advanced {
         canvas.addEventListener("touchend", moreBees);
         canvas.addEventListener("click", moreBees);
 
+        // alle Blumen malen
+        for (let flower of allFlowers) {
+            flower.draw();
+        }
         // Große und kleine Wolken werden gemalt und animiert
         for (let i: number = 0; i < allClouds.length; i++) {
 
-            
+
             for (let bigClouds of allClouds) { // Array durchgehen mit Hilfe der Variable bigClouds: und große Wolken nacheinander rausholen
                 if (bigClouds instanceof BigCloud) { // wenn es eine große Wolke ist, dann bewege dich mit moveForward.
                     bigClouds.moveForward();
                     bigClouds.drawCloud1();
                 }
             }
-            
+
             for (let smallClouds of allClouds) {
                 if (smallClouds instanceof SmallCloud) {
                     smallClouds.moveForward2();
                     smallClouds.drawCloud2();
                 }
             }
-            
+
             //Damit die Wolken wieder ins Bild kommen, sobald sie aus dem Bild geflogen sind.
             if (allClouds[i].x > + 1300) {
                 allClouds[i].x = canvas.width - 2000;
             }
-           
+
         }
 
         // drawClouds();
@@ -154,11 +169,11 @@ namespace Advanced {
 
             case 0:
                 let b: SuperclassBee = new NormalBee(1175, 505); // Neue Biene mit neuer Klasse
-                allBees.push(b); 
+                allBees.push(b);
                 break;
             case 1:
                 let h: SuperclassBee = new HoneyBee(1175, 505); // Neue Biene mit neuer Klasse
-                allBees.push(h); 
+                allBees.push(h);
                 break;
         }
     }

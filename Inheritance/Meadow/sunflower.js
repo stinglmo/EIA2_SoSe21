@@ -12,10 +12,10 @@ var Inheritance;
         constructor(_x, _y) {
             super(_x, _y);
             console.log("Create Tulpe");
-            this.drawSunflower();
+            this.draw();
         }
         //Methode drawSunflower
-        drawSunflower() {
+        draw() {
             //Stiel
             Inheritance.crc2.beginPath();
             Inheritance.crc2.strokeStyle = "#556B2F";
@@ -60,7 +60,37 @@ var Inheritance;
             Inheritance.crc2.fill();
             //Blütenmitte
             Inheritance.crc2.beginPath();
-            Inheritance.crc2.fillStyle = "#8B4500";
+            // Nectarlevel
+            if (this.nectarLevel >= 0.9 && this.nectarLevel <= 1) {
+                Inheritance.crc2.fillStyle = "#8B4500ff";
+            }
+            else if (this.nectarLevel >= 0.8 && this.nectarLevel < 0.9) {
+                Inheritance.crc2.fillStyle = "#8B4599dd";
+            }
+            else if (this.nectarLevel >= 0.7 && this.nectarLevel < 0.8) {
+                Inheritance.crc2.fillStyle = "#8B4599bb";
+            }
+            else if (this.nectarLevel >= 0.6 && this.nectarLevel < 0.7) {
+                Inheritance.crc2.fillStyle = "#8B459999";
+            }
+            else if (this.nectarLevel >= 0.5 && this.nectarLevel < 0.6) {
+                Inheritance.crc2.fillStyle = "#8B459977";
+            }
+            else if (this.nectarLevel >= 0.4 && this.nectarLevel < 0.5) {
+                Inheritance.crc2.fillStyle = "#8B459955";
+            }
+            else if (this.nectarLevel >= 0.3 && this.nectarLevel < 0.4) {
+                Inheritance.crc2.fillStyle = "#8B459933";
+            }
+            else if (this.nectarLevel >= 0.2 && this.nectarLevel < 0.3) {
+                Inheritance.crc2.fillStyle = "#8B459922";
+            }
+            else if (this.nectarLevel >= 0.1 && this.nectarLevel < 0.2) {
+                Inheritance.crc2.fillStyle = "#8B459911";
+            }
+            else if (this.nectarLevel >= 0 && this.nectarLevel < 0.1) {
+                Inheritance.crc2.fillStyle = "#8B459900";
+            }
             Inheritance.crc2.arc(this.x + 70, this.y + 30, 5, 0, 2 * Math.PI);
             Inheritance.crc2.closePath();
             Inheritance.crc2.fill();

@@ -9,6 +9,7 @@ Quellen: W3School, MDN und Unterrichtsmaterial
 var Inheritance;
 (function (Inheritance) {
     // Vererbt alles an die Subklassen: poppy, sunflower und tulip
+    // Abstrakt wegen draw
     class SuperclassFlower {
         constructor(_x, _y) {
             this.x = _x;

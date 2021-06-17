@@ -11,16 +11,16 @@ var Inheritance;
     class Poppy extends Inheritance.SuperclassFlower {
         constructor(_x, _y) {
             super(_x, _y);
-            console.log("Create Poppy");
-            this.drawPoppy();
+            // console.log("Create Poppy");
+            this.draw();
         }
         //Methode "drawPoppy"
-        drawPoppy() {
+        draw() {
             //Stiel
             Inheritance.crc2.beginPath();
             Inheritance.crc2.strokeStyle = "#556B2F";
             Inheritance.crc2.fillStyle = "#556B2F";
-            Inheritance.crc2.fillRect(this.x - 2, this.y + 10, 4, 55); // Dritter Wert = Breite Stiel, vierter Wert = Länge
+            Inheritance.crc2.fillRect(this.x - 2, this.y + 10, 4, 55); // Dritter Wert = Breiter Stiel, vierter Wert = Länge
             //Blätter 
             Inheritance.crc2.moveTo(this.x, this.y + 30);
             Inheritance.crc2.lineTo(this.x + 10, this.y + 15);
@@ -42,7 +42,36 @@ var Inheritance;
             Inheritance.crc2.fill();
             //Blütenmitte
             Inheritance.crc2.beginPath();
-            Inheritance.crc2.fillStyle = "#3B170B";
+            if (this.nectarLevel >= 0.9 && this.nectarLevel <= 1) {
+                Inheritance.crc2.fillStyle = "#3B170Bff";
+            }
+            else if (this.nectarLevel >= 0.8 && this.nectarLevel < 0.9) {
+                Inheritance.crc2.fillStyle = "#3B170Bdd";
+            }
+            else if (this.nectarLevel >= 0.7 && this.nectarLevel < 0.8) {
+                Inheritance.crc2.fillStyle = "#3B170Bcc";
+            }
+            else if (this.nectarLevel >= 0.6 && this.nectarLevel < 0.7) {
+                Inheritance.crc2.fillStyle = "#3B170Baa";
+            }
+            else if (this.nectarLevel >= 0.5 && this.nectarLevel < 0.6) {
+                Inheritance.crc2.fillStyle = "#3B170B99";
+            }
+            else if (this.nectarLevel >= 0.4 && this.nectarLevel < 0.5) {
+                Inheritance.crc2.fillStyle = "#3B170B77";
+            }
+            else if (this.nectarLevel >= 0.3 && this.nectarLevel < 0.4) {
+                Inheritance.crc2.fillStyle = "#3B170B66";
+            }
+            else if (this.nectarLevel >= 0.2 && this.nectarLevel < 0.3) {
+                Inheritance.crc2.fillStyle = "#3B170B55";
+            }
+            else if (this.nectarLevel >= 0.1 && this.nectarLevel < 0.2) {
+                Inheritance.crc2.fillStyle = "#3B170B33";
+            }
+            else if (this.nectarLevel >= 0 && this.nectarLevel < 0.1) {
+                Inheritance.crc2.fillStyle = "#3B170B33";
+            }
             Inheritance.crc2.arc(this.x, this.y, 5, 0, 2 * Math.PI);
             Inheritance.crc2.closePath();
             Inheritance.crc2.fill();

@@ -2,7 +2,7 @@
 Aufgabe: Meadow 
 Name: Mona Stingl
 Matrikel: 267315
-Datum: 07.06.21
+Datum: 17.06.21
 Quellen: W3School, MDN und Unterrichtsmaterial
 */
 
@@ -14,13 +14,13 @@ namespace Advanced {
         constructor(_x: number, _y: number) {
 
             super(_x, _y);
-            console.log("Create Poppy");
-            this.drawPoppy();
+            // console.log("Create Poppy");
+            this.draw();
            
         }
 
         //Methode "drawPoppy"
-        private drawPoppy(): void {
+        draw(): void {
 
             //Stiel
             crc2.beginPath();
@@ -55,7 +55,39 @@ namespace Advanced {
 
             //Blütenmitte
             crc2.beginPath();
-            crc2.fillStyle = "#3B170B";
+
+            // Nectar
+            if (this.nectarLevel >= 0.9 && this.nectarLevel <= 1 ) {
+                crc2.fillStyle = "#3B170Bff";
+            }
+            else if (this.nectarLevel >= 0.8 && this.nectarLevel < 0.9 ) {
+                crc2.fillStyle = "#3B170Bdd";
+            }
+            else if (this.nectarLevel >= 0.7 && this.nectarLevel < 0.8 ) {
+                crc2.fillStyle = "#3B170Bcc";
+            }
+            else if (this.nectarLevel >= 0.6 && this.nectarLevel < 0.7 ) {
+                crc2.fillStyle = "#3B170Baa";
+            }
+            else if (this.nectarLevel >= 0.5 && this.nectarLevel < 0.6 ) {
+                crc2.fillStyle = "#3B170B99";
+            }
+            else if (this.nectarLevel >= 0.4 && this.nectarLevel < 0.5 ) {
+                crc2.fillStyle = "#3B170B77";
+            }
+            else if (this.nectarLevel >= 0.3 && this.nectarLevel < 0.4 ) {
+                crc2.fillStyle = "#3B170B66";
+            }
+            else if (this.nectarLevel >= 0.2 && this.nectarLevel < 0.3 ) {
+                crc2.fillStyle = "#3B170B55";
+            }
+            else if (this.nectarLevel >= 0.1 && this.nectarLevel < 0.2 ) {
+                crc2.fillStyle = "#3B170B33";
+            }
+            else if (this.nectarLevel >= 0 && this.nectarLevel < 0.1 ) {
+                crc2.fillStyle = "#3B170B33";
+            }
+
             crc2.arc(this.x, this.y, 5, 0, 2 * Math.PI);
 
             crc2.closePath();

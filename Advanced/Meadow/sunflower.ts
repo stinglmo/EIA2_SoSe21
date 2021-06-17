@@ -2,7 +2,7 @@
 Aufgabe: Meadow 
 Name: Mona Stingl
 Matrikel: 267315
-Datum: 07.06.21
+Datum: 17.06.21
 Quellen: W3School, MDN und Unterrichtsmaterial
 */
 
@@ -14,12 +14,13 @@ namespace Advanced {
         constructor(_x: number, _y: number) {
 
             super(_x, _y);
-            console.log("Create Tulpe");
-            this.drawSunflower();
+            // console.log("Create Tulpe");
+            this.draw();
         }
 
         //Methode drawSunflower
-        private drawSunflower(): void {
+        // draw vererbt von der Superklasse
+        draw(): void {
 
             //Stiel
             crc2.beginPath();
@@ -72,7 +73,38 @@ namespace Advanced {
 
             //Blütenmitte
             crc2.beginPath();
-            crc2.fillStyle = "#8B4500";
+
+            // Nectarlevel
+            if (this.nectarLevel >= 0.9 && this.nectarLevel <= 1 ) {
+                crc2.fillStyle = "#8B4500ff";
+            }
+            else if (this.nectarLevel >= 0.8 && this.nectarLevel < 0.9 ) {
+                crc2.fillStyle = "#8B4599dd";
+            }
+            else if (this.nectarLevel >= 0.7 && this.nectarLevel < 0.8 ) {
+                crc2.fillStyle = "#8B4599bb";
+            }
+            else if (this.nectarLevel >= 0.6 && this.nectarLevel < 0.7 ) {
+                crc2.fillStyle = "#8B459999";
+            }
+            else if (this.nectarLevel >= 0.5 && this.nectarLevel < 0.6 ) {
+                crc2.fillStyle = "#8B459977";
+            }
+            else if (this.nectarLevel >= 0.4 && this.nectarLevel < 0.5 ) {
+                crc2.fillStyle = "#8B459955";
+            }
+            else if (this.nectarLevel >= 0.3 && this.nectarLevel < 0.4 ) {
+                crc2.fillStyle = "#8B459933";
+            }
+            else if (this.nectarLevel >= 0.2 && this.nectarLevel < 0.3 ) {
+                crc2.fillStyle = "#8B459922";
+            }
+            else if (this.nectarLevel >= 0.1 && this.nectarLevel < 0.2 ) {
+                crc2.fillStyle = "#8B459911";
+            }
+            else if (this.nectarLevel >= 0 && this.nectarLevel < 0.1 ) {
+                crc2.fillStyle = "#8B459900";
+            }
 
             crc2.arc(this.x + 70, this.y + 30, 5, 0, 2 * Math.PI);
 

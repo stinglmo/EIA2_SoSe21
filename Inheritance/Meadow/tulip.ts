@@ -15,11 +15,11 @@ namespace Inheritance {
 
             super(_x, _y);
             console.log("Create Tulip");
-            this.drawTulip();
+            this.draw();
         }
 
         //Methode "drawTulip"   
-        drawTulip(): void {
+        draw(): void {
 
             //Stiel
             crc2.beginPath();
@@ -34,7 +34,37 @@ namespace Inheritance {
 
             //Blüte
             crc2.beginPath();
-            crc2.fillStyle = "#FF1493";
+
+            if (this.nectarLevel >= 0.9 && this.nectarLevel <= 1 ) {
+                crc2.fillStyle = "#FF1493ff";
+            }
+            else if (this.nectarLevel >= 0.8 && this.nectarLevel < 0.9 ) {
+                crc2.fillStyle = "#FF1493ee";
+            }
+            else if (this.nectarLevel >= 0.7 && this.nectarLevel < 0.8 ) {
+                crc2.fillStyle = "#FF1493dd";
+            }
+            else if (this.nectarLevel >= 0.6 && this.nectarLevel < 0.7 ) {
+                crc2.fillStyle = "#FF1493cc";
+            }
+            else if (this.nectarLevel >= 0.5 && this.nectarLevel < 0.6 ) {
+                crc2.fillStyle = "#FF1493bb";
+            }
+            else if (this.nectarLevel >= 0.4 && this.nectarLevel < 0.5 ) {
+                crc2.fillStyle = "#FF1493aa";
+            }
+            else if (this.nectarLevel >= 0.3 && this.nectarLevel < 0.4 ) {
+                crc2.fillStyle = "#FF149399";
+            }
+            else if (this.nectarLevel >= 0.2 && this.nectarLevel < 0.3 ) {
+                crc2.fillStyle = "#FF149388";
+            }
+            else if (this.nectarLevel >= 0.1 && this.nectarLevel < 0.2 ) {
+                crc2.fillStyle = "#FF149377";
+            }
+            else if (this.nectarLevel >= 0 && this.nectarLevel < 0.1 ) {
+                crc2.fillStyle = "#FF149366";
+            }
 
             crc2.arc(this.x + 10, this.y + 20, 10, 0, 1 * Math.PI);
             crc2.moveTo(this.x, this.y + 22);
