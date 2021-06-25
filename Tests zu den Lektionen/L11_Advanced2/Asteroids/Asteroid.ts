@@ -12,7 +12,7 @@ namespace L11_AsteroidsAdvanced {
 
             this.type = Math.floor(Math.random() * 4);
             this.size = _size;
-            this.hitRadius = 50 * _size;
+            this.hitRadius = 50 * _size; // Objekte müssen wissen wie groß sie sind
         }
 
         public draw(): void {

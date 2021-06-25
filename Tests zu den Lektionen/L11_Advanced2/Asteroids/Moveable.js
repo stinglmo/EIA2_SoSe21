@@ -5,7 +5,7 @@ var L11_AsteroidsAdvanced;
         constructor(_position) {
             // console.log("Moveable constructor");
             this.expendable = false;
-            this.hitRadius = 0;
+            this.hitRadius = 0; // Superklassen und Subklassen bekommen was davon mit
             if (_position)
                 this.position = _position.copy();
             else
@@ -16,7 +16,7 @@ var L11_AsteroidsAdvanced;
             let difference = L11_AsteroidsAdvanced.Vector.getDifference(this.position, _partner.position);
             if (this.hitRadius + _partner.hitRadius < difference.length)
                 return false;
-            return true;
+            return true; // Kollisionsmethode, die zwei MoveableMetjhoden mit Hitradien gegeneinander pfüft
         }
         hit() {
             console.log("Hit", this);

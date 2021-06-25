@@ -8,7 +8,7 @@ var L11_AsteroidsAdvanced;
             this.velocity = L11_AsteroidsAdvanced.Vector.getRandom(100, 200);
             this.type = Math.floor(Math.random() * 4);
             this.size = _size;
-            this.hitRadius = 50 * _size;
+            this.hitRadius = 50 * _size; // Objekte müssen wissen wie groß sie sind
         }
         draw() {
             // console.log("Asteroid draw");

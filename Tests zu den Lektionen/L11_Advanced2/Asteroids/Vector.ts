@@ -22,7 +22,7 @@ namespace L11_AsteroidsAdvanced {
         }
 
         public get length(): number {
-            return Math.hypot(this.x, this.y);
+            return Math.hypot(this.x, this.y); // number zurückliefern
         }
 
         public set(_x: number, _y: number): void {

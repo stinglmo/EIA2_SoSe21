@@ -17,7 +17,7 @@ var L11_AsteroidsAdvanced;
             return vector;
         }
         get length() {
-            return Math.hypot(this.x, this.y);
+            return Math.hypot(this.x, this.y); // number zurückliefern
         }
         set(_x, _y) {
             this.x = _x;

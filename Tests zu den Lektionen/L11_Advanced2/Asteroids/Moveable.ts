@@ -3,7 +3,7 @@ namespace L11_AsteroidsAdvanced {
         public position: Vector;
         public velocity: Vector;
         public expendable: boolean = false;
-        protected hitRadius: number = 0;
+        protected hitRadius: number = 0; // Superklassen und Subklassen bekommen was davon mit
 
         constructor(_position?: Vector) {
             // console.log("Moveable constructor");
@@ -16,12 +16,12 @@ namespace L11_AsteroidsAdvanced {
             this.velocity = new Vector(0, 0);
         }
 
-        public isHitBy(_partner: Moveable): boolean {
+        public isHitBy(_partner: Moveable): boolean { // wenn sie aneinader knallen
             let difference: Vector = Vector.getDifference(this.position, _partner.position);
             if (this.hitRadius + _partner.hitRadius < difference.length)
                 return false;
 
-            return true;
+            return true; // Kollisionsmethode, die zwei MoveableMetjhoden mit Hitradien gegeneinander pfüft
         }
 
         public hit(): void {

@@ -110,9 +110,9 @@ namespace L11_AsteroidsAdvanced {
         }
     }
 
-    function handleCollisions(): void {
+    function handleCollisions(): void { // Es folgt immer eine weitere Schleife die gegen das kommende prüft
         for (let i: number = 0; i < moveables.length; i++) {
-            let a: Moveable = moveables[i];
+            let a: Moveable = moveables[i]; // Zahlenwerte für verschiedene Indizes
             for (let j: number = i + 1; j < moveables.length; j++) {
                 let b: Moveable = moveables[j];
 
@@ -121,7 +121,8 @@ namespace L11_AsteroidsAdvanced {
                 if (a.expendable || b.expendable)
                     continue;
 
-                if (a.isHitBy(b)) {
+                if (a.isHitBy(b)) { // wenn a von b getroffen wurde --> Asteroid muss zerspringen, wenn Ufo getroffen wird soll es verschwinden etc. 
+                    // Was passiett ist abhängig vom Typ des getroffenen Objekts (heißt, das steht innerhalb der jeweiligen Subklasse)
                     a.hit();
                     b.hit();
                 }

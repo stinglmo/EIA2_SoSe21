@@ -1,0 +1,51 @@
+/*
+Aufgabe: Meadow 
+Name: Mona Stingl
+Matrikel: 267315
+Datum: 07.06.21
+Quellen: W3School, MDN und Unterrichtsmaterial
+*/
+
+namespace Advanced2 {
+
+    // Vererbt alles an die Subklassen: poppy, sunflower und tulip
+    export abstract class SuperclassFlower {
+
+        public x: number;
+        public y: number;
+        public nectarLevel: number;
+
+        constructor(_x: number, _y: number) {
+
+            this.x = _x;
+            this.y = _y;
+        }
+
+        // Methode draw
+        abstract draw(): void;
+
+        public updateNectarLevel(): void {
+            if (this.nectarLevel < 1) {
+                this.fillNectarLevel();
+            }
+            
+        }
+
+        // Nectarlevel
+        protected fillNectarLevel(): void {
+            
+        this.nectarLevel += 0.05;
+            // if (this.nectarLevel >= 1 && this.nectarLevel <= 1.4) {
+            //     fullFlower.push(flower);
+
+            // }
+                    
+            // }
+        }
+
+
+
+
+    } // close class
+
+} // close namespace
