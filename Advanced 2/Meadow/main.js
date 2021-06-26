@@ -45,7 +45,7 @@ var Advanced2;
             for (let flower of Advanced2.allFlowers) {
                 flower.update();
             }
-        }, 3000); // immer gleiche Höhe wie function
+        }, 500); // immer gleiche Höhe wie function
         //Erscheinen der 10 Bienen am Ausgang des Bienenstocks (beim Laden)
         for (let i = 0; i < Advanced2.n; i++) {
             let b = new Advanced2.NormalBee(1175, 505); // Neue Biene mit neuer Klasse

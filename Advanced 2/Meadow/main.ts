@@ -62,7 +62,7 @@ namespace Advanced2 {
                 for (let flower of allFlowers) {
                     flower.update();
                 }
-        },  3000); // immer gleiche Höhe wie function
+        },  500); // immer gleiche Höhe wie function
 
         //Erscheinen der 10 Bienen am Ausgang des Bienenstocks (beim Laden)
         for (let i: number = 0; i < n; i++) {
