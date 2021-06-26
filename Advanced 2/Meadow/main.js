@@ -3,7 +3,7 @@
 Aufgabe: Meadow
 Name: Mona Stingl
 Matrikel: 267315
-Datum: 17.06.21
+Datum: 26.06.21
 Quellen: W3School, MDN und Unterrichtsmaterial
 */
 var Advanced2;
@@ -21,6 +21,8 @@ var Advanced2;
     function handleLoad(_event) {
         canvas = document.getElementsByTagName("canvas")[0];
         Advanced2.crc2 = canvas.getContext("2d");
+        //Bei Klick / Touch auf den Canvas erscheint eine neue Biene am Ausgang des Bienenstocks.       
+        canvas.addEventListener("pointerup", moreBees); // pointerup --> egal ob Touch/Click etc.
         //Hintergund mittels einer Klasse erstellen
         let bG = new Advanced2.Background;
         console.log(bG); // nicht notwendig, aber der Linter spinnt sonst rum.
@@ -79,8 +81,6 @@ var Advanced2;
     function animate() {
         Advanced2.crc2.putImageData(imgData, 0, 0); // Bedeutung: das gespeicherte Bild wiederverwenden
         // crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);
-        //Bei Klick / Touch auf den Canvas erscheint eine neue Biene am Ausgang des Bienenstocks.       
-        canvas.addEventListener("pointerup", moreBees); // pointerup --> egal ob Touch/Click etc.
         // alle Blumen malen
         for (let flower of Advanced2.allFlowers) {
             flower.draw();

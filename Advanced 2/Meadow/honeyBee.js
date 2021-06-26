@@ -3,7 +3,7 @@
 Aufgabe: Meadow
 Name: Mona Stingl
 Matrikel: 267315
-Datum: 07.06.21
+Datum: 26.06.21
 Quellen: W3School, MDN und Unterrichtsmaterial
 */
 var Advanced2;
@@ -19,6 +19,7 @@ var Advanced2;
     class HoneyBee extends Advanced2.SuperclassBee {
         constructor(_x, _y) {
             super(_x, _y); // Konstruktionen für abgeleitete Klassen müssen einen Aufruf super() enthalten!
+            this.nectar = 0;
             this.task = TASK.IDLE; // Leerlauf - Anfangszustand
             this.setRandomSize();
             this.speed = 0.005;
@@ -39,11 +40,13 @@ var Advanced2;
                 Advanced2.crc2.scale(1, 1);
             }
             // Nectar
-            Advanced2.crc2.beginPath();
-            Advanced2.crc2.arc(xpos, this.y + 10, this.size, 0, 2 * Math.PI); // wenn sie nicht gescalet wird x pos, wenn sie gescalet wurde - xpos!
-            Advanced2.crc2.closePath();
-            Advanced2.crc2.fillStyle = "orange";
-            Advanced2.crc2.fill();
+            if (this.nectar > 0) {
+                Advanced2.crc2.beginPath();
+                Advanced2.crc2.arc(xpos, this.y + 10, this.size, 0, 2 * Math.PI); // wenn sie nicht gescalet wird x pos, wenn sie gescalet wurde - xpos!
+                Advanced2.crc2.closePath();
+                Advanced2.crc2.fillStyle = "orange";
+                Advanced2.crc2.fill();
+            }
             // Biene
             // Körper
             Advanced2.crc2.beginPath();
@@ -103,20 +106,30 @@ var Advanced2;
         setRandomSize() {
             this.size = Math.random() * 20 + 10; //Größe
         }
+        update() {
+            super.update();
+            this.updateTask();
+        }
         updateTask() {
             switch (this.task) {
                 case TASK.IDLE: // wenn du nichts zu tun hast
                     // suche volle Blume
                     this.setRandomFlowerPosition();
                     // Blume gefunden:
-                    this.task = TASK.FLY_TO_FLOWER; // vlt erst bei Move wenn volle Blume gefunden wurde
+                    if (this.flower) {
+                        this.task = TASK.FLY_TO_FLOWER; // vlt erst bei Move wenn volle Blume gefunden wurde
+                    }
                     break;
                 case TASK.FLY_TO_FLOWER:
                     // Biene bewegt sich zur Blume
                     this.move();
                     // wenn angekommen:
-                    this.task = TASK.ABSORB_NECTAR;
-                    this.flower = null; //Biene soll vergessen, dass sie auf Blume saß
+                    // Differenz
+                    let xDiff = this.xTarget - this.x;
+                    let yDiff = this.yTarget - this.y;
+                    if (Math.abs(xDiff) < 1 && Math.abs(yDiff) < 1) { // wenn sie nah genug dran ist, saugt sie
+                        this.task = TASK.ABSORB_NECTAR;
+                    }
                     break;
                 case TASK.ABSORB_NECTAR:
                     // Nectar -= 0.5 --> Blume aussaugen
@@ -125,51 +138,57 @@ var Advanced2;
                     if (this.nectar > 2) { // wenn Nectar > 2 fliegt die Biene zum Bienenstock
                         this.task = TASK.FLY_TO_BEHIVE;
                     }
-                    else if (this.nectar == 0) { // wenn Blume leer --> IDLE, solange bis Nectar >2 ist
+                    else if (this.nectar <= 2) { // wenn Blume leer --> IDLE, solange bis Nectar >2 ist
                         this.task = TASK.IDLE;
+                        this.flower = null; //Biene soll vergessen, dass sie auf Blume saß
+                        // this.direction = false;
                     }
                     break;
                 case TASK.FLY_TO_BEHIVE:
                     // Biene fliegt zum Bienenstock
                     this.setTargetBeehive();
                     // am Bienenkorb angekommen:
-                    this.task = TASK.EJECT_NECTAR;
+                    let xDiff2 = this.xTarget - this.x;
+                    let yDiff2 = this.yTarget - this.y;
+                    if (Math.abs(xDiff2) < 1 && Math.abs(yDiff2) < 1 && this.x > 1188) {
+                        this.task = TASK.EJECT_NECTAR;
+                    }
                     break;
                 case TASK.EJECT_NECTAR:
                     // Wenn am Bienenkorb angekommen: Lässt Nektar fallen
                     this.ejectNectar();
                     // sobald fertig:
-                    this.task = TASK.IDLE;
+                    if (this.nectar < 1) {
+                        this.task = TASK.IDLE;
+                    }
             }
         }
         // Honigbiene zu dieser Position x,y bewegen
         move() {
+            if (!this.flower) { // nur wenn es eine target Blume gibt, ansonsten fliegen sie wie die normalen Bienen
+                super.move();
+                return;
+            }
             let xDiff = this.xTarget - this.x;
             let yDiff = this.yTarget - this.y;
             this.x += xDiff * this.speed;
             this.y += yDiff * this.speed;
-            if (this.x < 0) { // wenn sie nach rechts fliegen drehen sie sich um
+            if (xDiff > 0) { // wenn sie nach rechts fliegen drehen sie sich um
                 this.direction = true;
             }
-            console.log(this.x);
+            else {
+                this.direction = false;
+            }
         }
         getNectar() {
-            let xDiff = this.xTarget - this.x; // Größe vom Nektar
-            let yDiff = this.yTarget - this.y;
-            if (this.nectar < 10 && Math.abs(xDiff) < 1 && Math.abs(yDiff) < 1) {
+            if (this.nectar < 3) {
                 this.nectar = this.nectar + 1;
             }
             this.size = this.nectar * 2;
         }
         ejectNectar() {
-            let xDiff = this.xTarget - this.x;
-            let yDiff = this.yTarget - this.y;
-            if (Math.abs(xDiff) < 1 && Math.abs(yDiff) < 1) { // Ziel erreicht
-                if (this.nectar > 0 && this.x > 1188) { // Beim Bienenstock wird Nektar kleiner
-                    this.nectar = this.nectar - 1;
-                }
-                this.size = this.nectar * 2;
-            }
+            this.nectar = this.nectar - 2; // Beim Bienenstock wird Nektar kleiner
+            this.size = this.nectar * 2;
         }
         absorbNectar() {
             this.getNectar();
@@ -186,13 +205,15 @@ var Advanced2;
         }
         // Zufällige Position x,y aus dem Blumenarray 
         setRandomFlowerPosition() {
-            let r = Math.round(Math.random() * (Advanced2.fullFlower.length - 1));
-            if (Advanced2.fullFlower.length > 0) { // wegen dem Anfang
-                this.xTarget = Advanced2.fullFlower[r].x + 10; // an der Blume
-                this.yTarget = Advanced2.fullFlower[r].y;
-                console.log(Advanced2.fullFlower.length);
+            if (Advanced2.fullFlower.length > 0) {
+                let r = Math.round(Math.random() * (Advanced2.fullFlower.length - 1));
+                if (Advanced2.fullFlower.length > 0) { // wegen dem Anfang
+                    this.xTarget = Advanced2.fullFlower[r].x + 10; // an der Blume
+                    this.yTarget = Advanced2.fullFlower[r].y;
+                    console.log(Advanced2.fullFlower.length);
+                }
+                this.flower = Advanced2.fullFlower[r];
             }
-            this.flower = Advanced2.fullFlower[r];
         }
     }
     Advanced2.HoneyBee = HoneyBee;
