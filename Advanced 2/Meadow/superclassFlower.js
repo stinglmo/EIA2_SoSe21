@@ -14,18 +14,27 @@ var Advanced2;
             this.x = _x;
             this.y = _y;
         }
-        updateNectarLevel() {
-            if (this.nectarLevel < 1) {
-                this.fillNectarLevel();
-            }
+        spendNectar() {
+            let nectar = this.nectarLevel -= 0.5;
+            return nectar;
+        } // erst wenn Nectar 0, wird sie aus dem Array rausgelöscht
+        update() {
+            this.fillNectarLevel();
         }
         // Nectarlevel
         fillNectarLevel() {
-            this.nectarLevel += 0.05;
-            // if (this.nectarLevel >= 1 && this.nectarLevel <= 1.4) {
-            //     fullFlower.push(flower);
-            // }
-            // }
+            if (this.nectarLevel < 1) {
+                this.nectarLevel += 0.05;
+            }
+            else {
+                this.nectarLevel = 1;
+                if (Advanced2.fullFlower.indexOf(this) < 0) { // wenn die Blume noch nicht im Array ist
+                    Advanced2.fullFlower.push(this);
+                }
+                else if (this.nectarLevel == 0) {
+                    Advanced2.fullFlower.splice(Advanced2.fullFlower.indexOf(this)); // wieder aus dem Array raus
+                }
+            }
         }
     } // close class
     Advanced2.SuperclassFlower = SuperclassFlower;

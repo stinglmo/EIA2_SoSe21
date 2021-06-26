@@ -24,27 +24,33 @@ namespace Advanced2 {
         // Methode draw
         abstract draw(): void;
 
-        public updateNectarLevel(): void {
-            if (this.nectarLevel < 1) {
-                this.fillNectarLevel();
-            }
+        public spendNectar(): number {
+            let nectar: number = this.nectarLevel -= 0.5;
+            return nectar;
+        } // erst wenn Nectar 0, wird sie aus dem Array rausgelöscht
+
+        public update(): void {
             
+            this.fillNectarLevel();
+        
         }
 
         // Nectarlevel
         protected fillNectarLevel(): void {
-            
-        this.nectarLevel += 0.05;
-            // if (this.nectarLevel >= 1 && this.nectarLevel <= 1.4) {
-            //     fullFlower.push(flower);
 
-            // }
-                    
-            // }
+            if (this.nectarLevel < 1) {
+                this.nectarLevel += 0.05;
+            } else {
+                this.nectarLevel = 1;
+
+                if (fullFlower.indexOf(this) < 0) { // wenn die Blume noch nicht im Array ist
+                    fullFlower.push(this);
+                } else if (this.nectarLevel == 0) {
+                    fullFlower.splice(fullFlower.indexOf(this)); // wieder aus dem Array raus
+                }
+
+            }
         }
-
-
-
 
     } // close class
 

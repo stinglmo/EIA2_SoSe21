@@ -60,7 +60,7 @@ namespace Advanced2 {
         window.setInterval(
             function (): void {
                 for (let flower of allFlowers) {
-                    flower.updateNectarLevel();
+                    flower.update();
                 }
         },  3000); // immer gleiche Höhe wie function
 
@@ -72,7 +72,7 @@ namespace Advanced2 {
         }
         for (let i: number = 0; i < u; i++) {
                    
-            let h: SuperclassBee = new HoneyBee(1175, 505); // Neue Biene mit neuer Klasse
+            let h: HoneyBee = new HoneyBee(1175, 505); // Neue Biene mit neuer Klasse
             allBees.push(h); 
             // console.log(allBees);
                   

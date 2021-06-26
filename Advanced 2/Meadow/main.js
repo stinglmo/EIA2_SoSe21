@@ -43,7 +43,7 @@ var Advanced2;
         // Nectarlevel
         window.setInterval(function () {
             for (let flower of Advanced2.allFlowers) {
-                flower.updateNectarLevel();
+                flower.update();
             }
         }, 3000); // immer gleiche Höhe wie function
         //Erscheinen der 10 Bienen am Ausgang des Bienenstocks (beim Laden)

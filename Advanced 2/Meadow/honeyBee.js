@@ -25,7 +25,7 @@ var Advanced2;
             this.nectar = 0;
             this.setRandomFlowerPosition();
             // TASK ENUMERATION
-            this.update();
+            this.updateTask();
         }
         draw() {
             console.log("will gemalt werden");
@@ -103,17 +103,20 @@ var Advanced2;
         setRandomSize() {
             this.size = Math.random() * 20 + 10; //Größe
         }
-        update() {
+        updateTask() {
             switch (this.task) {
                 case TASK.IDLE: // wenn du nichts zu tun hast
                     // suche volle Blume
-                    // this.task = TASK.FLY_TO_FLOWER; // vlt erst bei Move wenn volle Blume gefunden wurde
+                    this.setRandomFlowerPosition();
+                    // Blume gefunden:
+                    this.task = TASK.FLY_TO_FLOWER; // vlt erst bei Move wenn volle Blume gefunden wurde
                     break;
                 case TASK.FLY_TO_FLOWER:
                     // Biene bewegt sich zur Blume
-                    this.flyToFlower();
+                    this.move();
                     // wenn angekommen:
                     this.task = TASK.ABSORB_NECTAR;
+                    this.flower = null; //Biene soll vergessen, dass sie auf Blume saß
                     break;
                 case TASK.ABSORB_NECTAR:
                     // Nectar -= 0.5 --> Blume aussaugen
@@ -122,7 +125,7 @@ var Advanced2;
                     if (this.nectar > 2) { // wenn Nectar > 2 fliegt die Biene zum Bienenstock
                         this.task = TASK.FLY_TO_BEHIVE;
                     }
-                    else { // wenn Blume leer --> IDLE, solange bis Nectar >2 ist
+                    else if (this.nectar == 0) { // wenn Blume leer --> IDLE, solange bis Nectar >2 ist
                         this.task = TASK.IDLE;
                     }
                     break;
@@ -140,18 +143,15 @@ var Advanced2;
             }
         }
         // Honigbiene zu dieser Position x,y bewegen
-        flyToFlower() {
-            this.getNectar();
+        move() {
             let xDiff = this.xTarget - this.x;
             let yDiff = this.yTarget - this.y;
-            if (Math.abs(xDiff) < 1 && Math.abs(yDiff) < 1 && this.nectar) {
-                this.setRandomFlowerPosition();
-                // this.absorbNectar();
+            this.x += xDiff * this.speed;
+            this.y += yDiff * this.speed;
+            if (this.x < 0) { // wenn sie nach rechts fliegen drehen sie sich um
+                this.direction = true;
             }
-            else {
-                this.x += xDiff * this.speed;
-                this.y += yDiff * this.speed;
-            }
+            console.log(this.x);
         }
         getNectar() {
             let xDiff = this.xTarget - this.x; // Größe vom Nektar
@@ -172,9 +172,12 @@ var Advanced2;
             }
         }
         absorbNectar() {
-            // target Flower nectarLevel -= 0.5;
+            this.getNectar();
+            if (this.flower != null) {
+                this.flower.spendNectar(); // Blume wird ausgesaugt
+            }
         }
-        // Methode "setStartPosition"
+        // Methode Bienenstock
         setTargetBeehive() {
             this.direction = true;
             // Hier bringen sie den Nektar hin
@@ -183,15 +186,13 @@ var Advanced2;
         }
         // Zufällige Position x,y aus dem Blumenarray 
         setRandomFlowerPosition() {
+            let r = Math.round(Math.random() * (Advanced2.fullFlower.length - 1));
             if (Advanced2.fullFlower.length > 0) { // wegen dem Anfang
-                let x = Math.round(Math.random() * (Advanced2.fullFlower.length - 1));
-                this.xTarget = Advanced2.fullFlower[x].x + 10; // an der Blume
-                this.yTarget = Advanced2.fullFlower[x].y;
-                console.log(Advanced2.fullFlower);
+                this.xTarget = Advanced2.fullFlower[r].x + 10; // an der Blume
+                this.yTarget = Advanced2.fullFlower[r].y;
+                console.log(Advanced2.fullFlower.length);
             }
-            else {
-                //
-            }
+            this.flower = Advanced2.fullFlower[r];
         }
     }
     Advanced2.HoneyBee = HoneyBee;
