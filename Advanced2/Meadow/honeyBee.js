@@ -110,6 +110,23 @@ var Advanced2;
             super.update();
             this.updateTask();
         }
+        // Honigbiene zu dieser Position x,y bewegen
+        move() {
+            if (!this.flower) { // nur wenn es eine target Blume gibt, ansonsten fliegen sie wie die normalen Bienen
+                super.move();
+                return;
+            }
+            let xDiff = this.xTarget - this.x;
+            let yDiff = this.yTarget - this.y;
+            this.x += xDiff * this.speed;
+            this.y += yDiff * this.speed;
+            if (xDiff > 0) { // wenn sie nach rechts fliegen drehen sie sich um
+                this.direction = true;
+            }
+            else {
+                this.direction = false;
+            }
+        }
         updateTask() {
             switch (this.task) {
                 case TASK.IDLE: // wenn du nichts zu tun hast
@@ -161,23 +178,6 @@ var Advanced2;
                     if (this.nectar < 1) {
                         this.task = TASK.IDLE;
                     }
-            }
-        }
-        // Honigbiene zu dieser Position x,y bewegen
-        move() {
-            if (!this.flower) { // nur wenn es eine target Blume gibt, ansonsten fliegen sie wie die normalen Bienen
-                super.move();
-                return;
-            }
-            let xDiff = this.xTarget - this.x;
-            let yDiff = this.yTarget - this.y;
-            this.x += xDiff * this.speed;
-            this.y += yDiff * this.speed;
-            if (xDiff > 0) { // wenn sie nach rechts fliegen drehen sie sich um
-                this.direction = true;
-            }
-            else {
-                this.direction = false;
             }
         }
         getNectar() {

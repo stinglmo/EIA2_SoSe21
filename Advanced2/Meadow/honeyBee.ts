@@ -148,8 +148,31 @@ namespace Advanced2 {
             this.updateTask();
         }
 
+        // Honigbiene zu dieser Position x,y bewegen
+        public move(): void {
 
-        public updateTask(): void {
+            if (!this.flower) { // nur wenn es eine target Blume gibt, ansonsten fliegen sie wie die normalen Bienen
+                super.move();
+                return;
+            }
+
+            let xDiff: number = this.xTarget - this.x;
+            let yDiff: number = this.yTarget - this.y;
+
+            this.x += xDiff * this.speed;
+            this.y += yDiff * this.speed;
+
+            if (xDiff > 0 ) { // wenn sie nach rechts fliegen drehen sie sich um
+                this.direction = true;
+            } else {
+                this.direction = false;
+            }
+            
+
+        }
+
+
+        private updateTask(): void {
             switch (this.task) {
                 case TASK.IDLE: // wenn du nichts zu tun hast
                     // suche volle Blume
@@ -205,28 +228,7 @@ namespace Advanced2 {
             }
         }
 
-        // Honigbiene zu dieser Position x,y bewegen
-        public move(): void {
-
-            if (!this.flower) { // nur wenn es eine target Blume gibt, ansonsten fliegen sie wie die normalen Bienen
-                super.move();
-                return;
-            }
-
-            let xDiff: number = this.xTarget - this.x;
-            let yDiff: number = this.yTarget - this.y;
-
-            this.x += xDiff * this.speed;
-            this.y += yDiff * this.speed;
-
-            if (xDiff > 0 ) { // wenn sie nach rechts fliegen drehen sie sich um
-                this.direction = true;
-            } else {
-                this.direction = false;
-            }
-            
-
-        }
+       
 
         private getNectar(): void {
 

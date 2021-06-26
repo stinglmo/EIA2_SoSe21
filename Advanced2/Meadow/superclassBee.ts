@@ -10,8 +10,8 @@ namespace Advanced2 {
 
     export abstract class SuperclassBee {
 
-        public x: number;
-        public y: number;
+        protected x: number;
+        protected y: number;
         protected size: number;
         protected color: string;
         protected sting: boolean;
