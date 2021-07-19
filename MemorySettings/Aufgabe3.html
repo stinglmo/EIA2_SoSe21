@@ -15,29 +15,22 @@
 
 		<form>
 		<fieldset class="formular visible">
-			<legend> Presets </legend> 
-			Choose the pair of cards
-			<input class="stepper" type="number" name="Stepper" step="1" min="5" max="25" value="5" />
+			<legend> Welcome to the soccer simulation </legend> 
+
+			Choose the precision of the ball
+			<input class="stepper" type="number" name="Stepper" step="1" min="10" max="30" value="5" />
 			<hr />
-			Choose the size of cards
-			<input class="slider" type="range" name="Slider" min="100" max="200" step="10" value="100" /> <!-- wenn keine Eingabe stattfindet, wird der value genommen--> 
-			<hr />
-			Choose the background-color
+			Choose the color of the arbitrator
 			<input class="backgroundColor" type="color" name="BGColor" placeholder="red" id="bGcolor" value="#ff0000">
 			<hr />
-			Choose the backside-color
+			Choose the color of the first team
 			<input class="backsideColor" type="color" name="BSColor" placeholder="red" id="bScolor" value="#ff0000">
 			<hr />
-			Choose the font-color
+			Choose the color of the second team
 			<input class="fontColor" type="color" name="FColor" placeholder="red" id="font-color" value="#000000">
 			<hr />
-			Choose the font-style
-			<input type="radio" name="Radiogroup" value="Arial" id="radio1" />
-			<label for="radio1">Arial</label>
-			<input type="radio" name="Radiogroup" value="Calibri" id="radio2" />
-			<label for="radio2">Calibri</label>
-			<input type="radio" name="Radiogroup" value="Helvetica" id="radio3" />
-			<label for="radio3">Helvetica</label>
+			Choose the general speed
+			<input class="slider" type="range" name="Slider" min="5" max="30" step="17.5" value="100" /> <!-- wenn keine Eingabe stattfindet, wird der value genommen--> 
 			<hr />
 			<button type="button" class="start">Start</button>
 		</fieldset>
